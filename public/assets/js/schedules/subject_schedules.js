@@ -33,6 +33,11 @@ document.getElementById('addSubject').addEventListener('click', function() {
     scheduleModal('create');
 });
 
+function editSchedule(scheduleData) {
+    var scheduleData = JSON.parse(scheduleData.getAttribute('data-scheduleData'));
+    scheduleModal('edit', scheduleData);
+}
+
 function scheduleModal(mode, scheduleData = {}) {
     let isEditMode = mode === 'edit';
     let modalTitle = isEditMode ? 'Edit Schedule' : 'New Schedule';
@@ -51,6 +56,7 @@ function scheduleModal(mode, scheduleData = {}) {
                     <form class="form-content" method="POST" action="${SCHEDULE_ROUTE}">
                         <input type="hidden" name="_token" value="${csrfToken}">
                         <input type="hidden" name="_method" value="${isEditMode ? 'PUT' : 'POST'}">
+                        <input type="hidden" name="schedule_id" value="${scheduleData.schedule_id ?? ''}">
                         <input type="hidden" name="department_id" value="${DEPARTMENT_ID}">
 
                         <div class="form-group-col">
@@ -75,7 +81,9 @@ function scheduleModal(mode, scheduleData = {}) {
                         <div class="form-group-row">
                             <div class="form-group">
                                 <label for="teacher">Teacher <strong class="required">*</strong></label>
-                                <select name="teacher" id="teacher"></select>
+                                <select name="teacher" id="teacher">
+                                    <option value="">TBA</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="room">Room <strong class="required">*</strong></label>
@@ -106,12 +114,12 @@ function scheduleModal(mode, scheduleData = {}) {
                             <div class="form-group-row">
                                 <div class="form-group">
                                     <label for="start_time">Start Time <strong class="required">*</strong></label>
-                                    <input type="time" name="start_time" id="start_time" />
+                                    <input type="time" name="start_time" id="start_time" value="${scheduleData.start_time || ''}" />
                                 </div>
 
                                 <div class="form-group">
                                     <label for="end_time">End Time <strong class="required">*</strong></label>
-                                    <input type="time" name="end_time" id="end_time" />
+                                    <input type="time" name="end_time" id="end_time" value="${scheduleData.end_time || ''}" />
                                 </div>
                             </div>
                         </div>
@@ -144,6 +152,11 @@ function scheduleModal(mode, scheduleData = {}) {
         let option = document.createElement('option');
         option.value = semester;
         option.textContent = semester;
+
+        if (scheduleData.semester === semester) {
+            option.selected = true;
+        }
+
         semesterSelect.appendChild(option);
     });
 
@@ -152,12 +165,17 @@ function scheduleModal(mode, scheduleData = {}) {
     TEACHERS.forEach(teacher => {
         let option = document.createElement('option');
         option.value = teacher.user_id;
-        
+
+        if (scheduleData.user_id === teacher.user_id) {
+            option.selected = true;
+        }
+
         let displayName = teacher.middle_name ? 
             `${teacher.first_name} ${teacher.middle_name.charAt(0)} ${teacher.last_name}` :
             `${teacher.first_name} ${teacher.last_name}`;
 
         option.textContent = `${displayName} (${teacher.position})`;
+
         teacherSelecct.appendChild(option);
     });
 
@@ -166,6 +184,11 @@ function scheduleModal(mode, scheduleData = {}) {
         let option = document.createElement('option');
         option.value = room.room_id;
         option.textContent = `${room.room_name} (${room.building_name})`;
+
+        if (scheduleData.room_id === room.room_id) {
+            option.selected = true;
+        }
+
         roomSelect.appendChild(option);
     });
 
@@ -173,90 +196,101 @@ function scheduleModal(mode, scheduleData = {}) {
     $('#sections').select2({
         placeholder: "Select sections",
         allowClear: true,
-        multiple: true,
-        data: scheduleData.section || []
-    }).val(scheduleData.section).trigger('change');
+        multiple: true
+    }).val(scheduleData.sections).trigger('change');
 
-    SECTIONS.forEach(section => {
-        $('#sections').append(new Option(section, section));
-    });
+    if ($('#sections option').length === 0) {
+        SECTIONS.forEach(section => {
+            $('#sections').append(new Option(section, section));
+        });
+        $('#sections').val(scheduleData.sections).trigger('change');
+    }
 
     $('#weekdays').select2({
         placeholder: "Select weekdays",
         allowClear: true,
-        multiple: true,
-        data: scheduleData.weekdays || []
+        multiple: true
     }).val(scheduleData.weekdays).trigger('change');
 
-    WEEKDAYS.forEach(weekday => {
-        $('#weekdays').append(new Option(weekday, weekday));
-    });
-
-
-    const courseSelect = document.getElementById('course');
-    COURSES.forEach(course => {
-        let option = document.createElement('option');
-        option.value = course.course_id;
-        option.textContent = course.course_name;
-        courseSelect.appendChild(option);
-    });
+    if ($('#weekdays option').length === 0) {
+        WEEKDAYS.forEach(weekday => {
+            $('#weekdays').append(new Option(weekday, weekday));
+        });
+        $('#weekdays').val(scheduleData.weekdays).trigger('change');
+    }
 
     const yearLevelSelect = document.getElementById('yearLevels');
     YEARLEVELS.forEach(yearLevel => {
         let option = document.createElement('option');
         option.value = yearLevel.year_level_id;
         option.textContent = yearLevel.year_level;
+
+        if (scheduleData.year_level_id === yearLevel.year_level_id) {
+            option.selected = true;
+        }
+
         yearLevelSelect.appendChild(option);
     });
 
-    function populateSubjects() {
-        const courseSelect = document.getElementById('course');
-        const subjectSelect = document.getElementById('subject');
-    
-        let debounceTimeout;
-    
-        courseSelect.addEventListener('change', function () {
-            clearTimeout(debounceTimeout);
-    
-            debounceTimeout = setTimeout(() => {
-                const selectedCourse = courseSelect.value;
-    
-                subjectSelect.innerHTML = '';
-                
-                const FETCH_SUBJECTS_ROUTE = route('fetch.subjects');
-                
-                fetch(`${FETCH_SUBJECTS_ROUTE}?course_id=${selectedCourse}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data && data.length > 0) {
-                            data.forEach(subject => {
-                                console.log(data);
-                                let option = document.createElement('option');
-                                option.value = subject.subject_id;
-                                option.textContent = `${subject.course_no.course_no} - ${subject.course_no.descriptive_title}`;
-                                subjectSelect.appendChild(option);
-                            });
-                        } else {
-                            let option = document.createElement('option');
-                            option.value = '';
-                            option.textContent = 'No subjects available';
-                            subjectSelect.appendChild(option);
-                        }
-                        $('#subject').val(null).trigger('change');
-                    })
-                    .catch(error => {
-                        console.error('Error fetching subjects:', error);
+    const courseSelect = document.getElementById('course');
+    const subjectSelect = document.getElementById('subject');
+    const populateSubjectsDebounced = _.debounce(populateSubjects, 300);
+
+    COURSES.forEach(course => {
+        let option = document.createElement('option');
+        option.value = course.course_id;
+        option.textContent = course.course_name;
+
+        if (scheduleData.course_id == course.course_id) {
+            option.selected = true;
+            populateSubjects(scheduleData.course_id, scheduleData.subject_id);
+        }
+
+        courseSelect.appendChild(option);
+    });
+
+    courseSelect.addEventListener('change', function() {
+        const selectedCourseId = this.value;
+        populateSubjectsDebounced(selectedCourseId);
+    });
+
+    function populateSubjects(courseId, subject_id) {
+        subjectSelect.innerHTML = '';
+
+        if (!courseId) return;
+
+        const FETCH_SUBJECTS_ROUTE = route('fetch.subjects');
+
+        fetch(`${FETCH_SUBJECTS_ROUTE}?course_id=${courseId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.length > 0) {
+                    data.forEach(subject => {
                         let option = document.createElement('option');
-                        option.value = '';
-                        option.textContent = 'Error loading subjects';
+                        option.value = subject.subject_id;
+                        option.textContent = `${subject.course_no.course_no} - ${subject.course_no.descriptive_title}`;
+
+                        if (subject_id == subject.subject_id) {
+                            option.selected = true;
+                        }
+
                         subjectSelect.appendChild(option);
                     });
-            }, 300);
-        });
+                } else {
+                    let option = document.createElement('option');
+                    option.value = '';
+                    option.textContent = 'No subjects available';
+                    subjectSelect.appendChild(option);
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching subjects:', error);
+                let option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'Error loading subjects';
+                subjectSelect.appendChild(option);
+            });
     }
-
-    populateSubjects();
-
 
     document.querySelector('.custom-swal-popup .close').addEventListener('click', () => {
         Swal.close();
@@ -323,6 +357,7 @@ function populateTable(response) {
                 </td>
                 <td>
                     <div class="actions">
+                        <span class="action edit" data-scheduleData='${JSON.stringify(schedule)}' onclick="event.stopPropagation(); editSchedule(this);"><i class="material-icons icon" title="Edit">edit_square</i></span>
                         <span class="action delete" data-schedule_id='${schedule.schedule_id}' onclick="event.stopPropagation(); deleteSchedule(this);">
                             <i class="material-icons icon" title="Delete">delete</i>
                         </span>
@@ -415,6 +450,7 @@ semesterFilter.addEventListener('change', handleFiltersChange);
 
 
 fetchSchedules(DEPARTMENT_ID); // initialize fetching
+
 
 
 const BULK_DELETE_SUBJECTS_ROUTE = route(`${authUserRole}.bulkdelete.schedules`);

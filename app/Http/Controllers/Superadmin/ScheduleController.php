@@ -110,7 +110,7 @@ class ScheduleController extends Controller
             'course' => 'required|integer',
             'subject' => 'required|integer',
             'semester' => 'required|string',
-            'teacher' => 'required|integer',
+            'teacher' => 'nullable|integer',
             'room' => 'required|integer',
             'year_level' => 'required|string',
             'sections' => 'required|array',
@@ -167,6 +167,73 @@ class ScheduleController extends Controller
             'type' => 'success',
         ]);
     }
+
+    public function update(Request $request)
+    {
+        $scheduleToUpdate = Schedule::where('schedule_id', $request->input('schedule_id'))->first();
+
+        if (!$scheduleToUpdate) {
+            return redirect()->back()->with([
+                "message" => "Invalid schedule ID provided.",
+                'type' => 'error',
+            ]);
+        }
+
+        $existingSchedule = Schedule::where(function ($query) use ($request) {
+            foreach ($request['weekdays'] as $day) {
+                $query->orWhere('weekdays', 'LIKE', "%$day%");
+            }
+            $query->where('start_time', '<=', $request['end_time'])
+                ->where('end_time', '>=', $request['start_time']);
+        })
+        ->where('room_id', $request['room'])
+        ->where('schedule_id', '!=', $scheduleToUpdate->schedule_id)
+        ->first();
+
+        if ($existingSchedule) {
+            return redirect()->back()->with([
+                "message" => "A schedule already exists for this room, time, and days.",
+                'type' => 'error',
+            ])->withInput();
+        }
+
+        $duplicateCheck = Schedule::where('subject_id', $request['subject'])
+            ->where('year_level_id', $request['year_level'])
+            ->whereJsonContains('sections', $request['sections'])
+            ->where('room_id', $request['room'])
+            ->where('schedule_id', '!=', $scheduleToUpdate->schedule_id)
+            ->first();
+
+        if ($duplicateCheck) {
+            return redirect()->back()->with([
+                "message" => "A schedule already exists for this subject, year level, sections, and room.",
+                'type' => 'error',
+            ])->withInput();
+        }
+
+        $scheduleToUpdate->update([
+            'department_id' => $request['department_id'],
+            'course_id' => $request['course'],
+            'subject_id' => $request['subject'],
+            'semester' => $request['semester'],
+            'user_id' => $request['teacher'] ?? null,
+            'room_id' => $request['room'],
+            'year_level_id' => $request['year_level'],
+            'sections' => $request['sections'],
+            'weekdays' => $request['weekdays'],
+            'start_time' => $request['start_time'],
+            'end_time' => $request['end_time'],
+        ]);
+
+        return redirect()->back()->with([
+            "message" => "Schedule successfully updated!",
+            'type' => 'success',
+        ]);
+    }
+
+
+
+
 
     public function bulkDelete(Request $request)
     {
