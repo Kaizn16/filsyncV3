@@ -1,0 +1,290 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+
+.container p{
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0.3px;
+    margin: 20px 0;
+}
+
+.container span{
+    font-size: 12px;
+}
+
+.container a{
+    color: #333;
+    font-size: 13px;
+    text-decoration: none;
+    margin: 15px 0 10px;
+    font-weight: 500;
+}
+
+.container a:hover {
+    text-decoration: underline;
+    color: #f7bb18;
+}
+
+.container button{
+    background-color: #ffb42a;
+    color: #fff;
+    font-size: 12px;
+    padding: 10px 45px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.container button.hidden{
+    background-color: transparent;
+    border-color: #fff;
+}
+
+.container .form-container {
+    display: flex;
+    align-items: start;
+    background: url('/assets/Images/Rectangle-BG.png') no-repeat;
+    background-size: 100% 100%;
+    background-color: transparent;
+}
+
+.container form{
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+    gap: 12px;
+    width: 100%;
+}
+
+.container form .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.container .form-container form .header .school-logo {
+    display: none;
+}
+
+.container .form-container form .header .Main-Logo {
+    max-width: 300px;
+    height: 64px;
+}
+
+.container .form-container form h1 {
+    color: #ffff;
+    font-size: 18px;
+}
+
+.container input{
+    background-color: transparent;
+    border: 1px solid #ccc;
+    color: #fff;
+    margin: 8px 0;
+    padding: 10px 15px;
+    font-size: 18px;
+    border-radius: 4px;
+    width: 300px;
+    outline: none;
+}
+
+.container input:hover {
+    border-color: #0f0f88;
+}
+
+.container input:focus {
+    border-color: #0f0f88;
+}
+
+.container input::placeholder {
+    color: #fff;
+}
+
+.password-container {
+    position: relative;
+    width: 300px;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 40px;
+    box-sizing: border-box;
+}
+
+.password-container .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 22px;
+    color: #888;
+}
+
+.password-container .toggle-password:hover {
+    color: #0f0f88;
+}
+
+.form-container{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+}
+
+.form-container form button {
+    margin-left: 86px;
+    background-color: #aca4c2;
+    color: #fff;
+}
+
+.form-container form button:hover {
+    background-color: #0f0f88;
+}
+
+.form-container form .checkbox-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.form-container form .checkbox-form input {
+    width: 32px;
+    height: 18px;
+    accent-color: gray; 
+}
+
+.form-container form .checkbox-form input:checked {
+    accent-color: rgb(0, 68, 255);
+}
+
+
+.form-container form .checkbox-form label {
+    font-size: 16px;
+    color: #fff;
+}
+
+.sign-in{
+    left: 0;
+    width: 70%;
+    z-index: 2;
+}
+
+.container.active .sign-in{
+    transform: translateX(100%);
+}
+
+.container .logo-container{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 60%;
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    background-color: transparent;
+    z-index: 2000;
+}
+
+.container .logo-container img {
+    border-radius: 50%;
+    max-width: 248px;
+    max-height: 248px;
+}
+
+
+.danger-message {
+    color: #fff;
+    background-color: red;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+   .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+   }
+
+   .container .form-container {
+        width: 100%;
+        background: url('/assets/Images/Rectangle-BG.png') no-repeat fixed;
+        background-size: cover;
+    }
+
+    .container .form-container form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .form-container form .checkbox-form {
+        margin-right: 54px;
+    }
+
+    .form-container form button {
+        margin: 0;
+    }
+
+    .container .form-container form .header .school-logo {
+        background-color: #fff;
+        border-radius: 50%;
+        display: block;
+    }
+    
+   .container .logo-container {
+        display: none;
+   }
+}
