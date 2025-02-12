@@ -111,6 +111,7 @@ class RoomController extends Controller
     {
         $search = $request->input('search');
         $building = $request->input('building');
+        $paginate = $request->input('paginate', 10);
 
         $query = Room::where('is_deleted', false);
 
@@ -125,7 +126,8 @@ class RoomController extends Controller
             $query->where('building_name', $building);
         }
 
-        $rooms = $query->paginate(15);
+        $rooms = $paginate === '' ? $query->limit(1000)->get() : $query->paginate($paginate);
+
 
         return response()->json($rooms);
     }

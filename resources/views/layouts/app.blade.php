@@ -21,7 +21,14 @@
 <body {{ Auth::user()->settings->first()?->is_theme_dark == 1 ? 'class=dark' : '' }}>
     <main class="container">
         
-        @include('layouts.superadminNav')
+        @if (Auth::user()->role->role_type == 'superadmin')
+            @include('layouts.superadminNav')
+        @elseif (Auth::user()->role->role_type == 'admin')
+            @include('layouts.adminNav')
+        @else
+            @include('layouts.404')
+        @endif
+
 
         <section class="content" style="visibility: hidden;">
             <x-loading-spinner/>

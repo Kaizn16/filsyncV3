@@ -13,8 +13,7 @@ class AcademicSetting extends Model
     protected $primaryKey = 'academic_setting_id';
 
     protected $fillable = [
-        'start_year',
-        'end_year',
+        'academic_year',
         'semester',
     ];
 }

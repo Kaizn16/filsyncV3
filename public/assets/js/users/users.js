@@ -101,8 +101,7 @@ positionFilter.addEventListener('change', () => {
 });
 
 
-fetchUsers();
-
+fetchUsers(); // Initializep
 
 
 
@@ -117,19 +116,10 @@ function editUser(editButton) {
 
 
 function openUserModal(mode, userData = {})
-{
+{   
     let isEditMode = mode === 'edit';
     let modalTitle = isEditMode ? 'Edit User' : 'New User';
     let buttonText = isEditMode ? 'SAVE' : 'ADD';
-
-    let username = userData.username || '';
-    let first_name = userData.first_name || '';
-    let middle_name = userData.middle_name || '';
-    let last_name = userData.last_name || '';
-    let gender = userData.gender_id || '';
-    let email = userData.email || '';
-    let contact_no = userData.contact_no || '';
-    let position = userData.position || '';
 
     const USER_ROUTE = isEditMode ? route(`${authUserRole}.update.user`) : route(`${authUserRole}.store.user`);
 
@@ -150,7 +140,7 @@ function openUserModal(mode, userData = {})
                         <div class="form-group-row">
                             <div class="form-group">
                                 <label for="username">Username <strong class="required">*</strong></label>
-                                <input type="text" name="username" id="username" value="${username}" placeholder="Username" />
+                                <input type="text" name="username" id="username" value="${userData?.username ?? formOldInputs?.username ?? ''}" placeholder="Username" />
                             </div>
 
                             <div class="form-group">
@@ -166,22 +156,22 @@ function openUserModal(mode, userData = {})
                             <div class="form-group-row">
                                 <div class="form-group">
                                     <label for="first_name">First Name <strong class="required">*</strong></label>
-                                    <input type="text" name="first_name" id="first_name" value="${first_name}" placeholder="First Name" />
+                                    <input type="text" name="first_name" id="first_name" value="${userData?.first_name ?? formOldInputs?.first_name ?? ''}" placeholder="First Name" />
                                 </div>
                                 <div class="form-group">
                                     <label for="middle_name">Middle Name</label>
-                                    <input type="text" name="middle_name" id="middle_name" value="${middle_name}" placeholder="Middle Name" />
+                                    <input type="text" name="middle_name" id="middle_name" value="${userData?.middle_name ?? formOldInputs?.middle_name ?? ''}" placeholder="Middle Name" />
                                 </div>
                                 <div class="form-group">
                                     <label for="last_name">Last Name <strong class="required">*</strong></label>
-                                    <input type="text" name="last_name" id="last_name" value="${last_name}" placeholder="Last Name" />
+                                    <input type="text" name="last_name" id="last_name" value="${userData?.last_name ?? formOldInputs?.last_name ?? ''}" placeholder="Last Name" />
                                 </div>
                                 <div class="form-group">
                                     <label for="gender_id">Gender <strong class="required">*</strong></label>
                                     <select name="gender_id" id="gender_id">
                                         <option selected disabled>Gender</option>
-                                        <option value="1" ${gender == 1 ? 'selected' : ''}>Male</option>
-                                        <option value="2" ${gender == 2 ? 'selected' : ''}>Female</option>
+                                        <option value="1" ${userData?.gender_id == 1 ? 'selected' : (formOldInputs?.gender_id == 1 ? 'selected' : '')}>Male</option>
+                                        <option value="2" ${userData?.gender_id == 2 ? 'selected' : (formOldInputs?.gender_id == 2 ? 'selected' : '')}>Female</option>
                                     </select>
                                 </div>
                             </div>
@@ -190,11 +180,11 @@ function openUserModal(mode, userData = {})
                                     <label for="position">Position <strong class="required">*</strong></label>
                                     <select name="position" id="position">
                                         <option selected disabled>Position</option>
-                                        <option value="VPAA" ${position == 'VPAA' ? 'selected' : ''} >VPAA</option>
-                                        <option value="REGISTRAR" ${position == 'REGISTRAR' ? 'selected' : ''}>REGISTRAR</option>
-                                        <option value="DEAN" ${position == 'DEAN' ? 'selected' : ''}>DEAN</option>
-                                        <option value="SECRETARY" ${position == 'SECRETARY' ? 'selected' : ''}>SECRETARY</option>
-                                        <option value="TEACHER" ${position == 'TEACHER' ? 'selected' : ''}>TEACHER</option>
+                                        <option value="VPAA" ${userData?.position == 'VPAA' ? 'selected' : (formOldInputs?.position == 'VPAA' ? 'selected' : '')}>VPAA</option>
+                                        <option value="REGISTRAR" ${userData?.position == 'REGISTRAR' ? 'selected' : (formOldInputs?.position == 'REGISTRAR' ? 'selected' : '')}>REGISTRAR</option>
+                                        <option value="DEAN" ${userData?.position == 'DEAN' ? 'selected' : (formOldInputs?.position == 'DEAN' ? 'selected' : '')}>DEAN</option>
+                                        <option value="SECRETARY" ${userData?.position == 'SECRETARY' ? 'selected' : (formOldInputs?.position == 'SECRETARY' ? 'selected' : '')}>SECRETARY</option>
+                                        <option value="TEACHER" ${userData?.position == 'TEACHER' ? 'selected' : (formOldInputs?.position == 'TEACHER' ? 'selected' : '')}>TEACHER</option>
                                     </select>
                                 </div>
                                 <div class="form-group" id="departmentSelection" style="display: none">
@@ -211,11 +201,11 @@ function openUserModal(mode, userData = {})
                         <div class="form-group-row">
                             <div class="form-group">
                                 <label for="contact_no">Contact No <strong class="required">*</strong></label>
-                                <input type="tel" name="contact_no" id="contact_no" value="${contact_no}" placeholder="Contact Number" />
+                                <input type="tel" name="contact_no" id="contact_no" value="${userData?.contact_no ?? formOldInputs?.contact_no ?? ''}" placeholder="Contact Number" />
                             </div>
                             <div class="form-group">
                                 <label for="email">Email <strong class="required">*</strong></label>
-                                <input type="email" name="email" id="email" value="${email}" placeholder="Email" />
+                                <input type="email" name="email" id="email" value="${userData?.email ?? formOldInputs?.email ?? ''}" placeholder="Email" />
                             </div>
                         </div>
 
@@ -273,12 +263,17 @@ function openUserModal(mode, userData = {})
                                 const option = document.createElement('option');
                                 option.value = dep.department_id;
                                 option.text = dep.department_name;
+
                                 departmentSelect.appendChild(option);
                             });
 
+                            if (formOldInputs.department) {
+                                departmentSelect.value = formOldInputs.department;
+                            }
                             if (isEditMode && userData.department_id) {
                                 departmentSelect.value = userData.department_id;
                             }
+
                         })
                         .catch(error => console.error('Error fetching departments:', error));
                 }
@@ -286,7 +281,7 @@ function openUserModal(mode, userData = {})
 
             positionSelect.addEventListener('change', debounce(fetchDepartments, 600));
 
-            if (userData.position) {
+            if (userData.position || formOldInputs?.position) {
                 fetchDepartments();
             }
             
@@ -305,7 +300,13 @@ function openUserModal(mode, userData = {})
                 Swal.showValidationMessage('Please fill out all fields');
                 return false;
             }
-            return { username, password, firstName, lastName, gender, position, contactNo, email};
+
+            if (!isEditMode && !password) {
+                Swal.showValidationMessage('Password is required');
+                return false;
+            }
+
+            return { username, firstName, lastName, gender, position, contactNo, email};
         }
     }).then((result) => {
         if (result.isConfirmed) {

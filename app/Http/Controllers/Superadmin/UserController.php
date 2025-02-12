@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Superadmin;
 
 use App\Models\Role;
-use App\Models\Setting;
 use App\Models\User;
+use App\Models\Setting;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Constants\AppConstants;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -49,7 +50,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            "username" => "required|min:6|unique:users,username",
+            "username" => "required|min:6",
             'password' => "required|min:8",
             "first_name" => "required",
             "middle_name" => "nullable",
@@ -57,9 +58,34 @@ class UserController extends Controller
             "gender_id" => "required|exists:genders,gender_id",
             "position" => "required",
             "department" => "nullable|exists:departments,department_id",
-            "contact_no" => "required|unique:users,contact_no",
-            "email" => "required|email|unique:users,email",
+            "contact_no" => "required",
+            "email" => "required|email",
         ]);
+
+        $existUsername = User::where("username", $validated["username"])->first();
+        $existEmail = User::where("email", $validated["email"])->first();
+        $existContactNo = User::where("contact_no", $validated["contact_no"])->first();
+
+        if ($existUsername) {
+            return redirect()->back()->with([
+                'message' => 'Username is already taken!',
+                'type' => 'error'
+            ])->withInput();
+        }
+        
+        if ($existEmail) {
+            return redirect()->back()->with([
+                'message' => 'Email is already taken!',
+                'type' => 'error'
+            ])->withInput();
+        }
+
+        if ($existContactNo) {
+            return redirect()->back()->with([
+                'message' => 'Contact number is already taken!',
+                'type' => 'error'
+            ])->withInput();
+        }
 
         $role_id = $this->getRoleByPosition($validated['position']);
 
@@ -76,10 +102,10 @@ class UserController extends Controller
             ]);
         }
 
-        return redirect()->route('superadmin.users')->with([
+        return redirect()->back()->with([
             'message' => 'Failed to create new user!',
             'type' => 'error'
-        ]);
+        ])->withInput();
     }  
 
     public function update(Request $request)
@@ -94,22 +120,59 @@ class UserController extends Controller
         }
 
         $validated = $request->validate([
-            'username' => 'required|min:6|unique:users,username,' . $user->user_id . ',user_id',
-            'password' => 'nullable',
+            'username' => 'required|min:6',
+            'password' => 'nullable|min:8',
             'first_name' => 'required',
             'middle_name' => 'nullable',
             'last_name' => 'required',
             'gender_id' => 'required|exists:genders,gender_id',
             'position' => 'required',
             'department' => 'nullable|exists:departments,department_id',
-            'contact_no' => 'required|unique:users,contact_no,' . $user->user_id . ',user_id',
-            'email' => 'required|email|unique:users,email,' . $user->user_id . ',user_id',
+            'contact_no' => 'required',
+            'email' => 'required|email',
         ]);
+
+        $existUsername = User::where("username", $validated["username"])
+            ->where("user_id", "!=", $user->user_id)
+            ->first();
+        $existEmail = User::where("email", $validated["email"])
+            ->where("user_id", "!=", $user->user_id)
+            ->first();
+        $existContactNo = User::where("contact_no", $validated["contact_no"])
+            ->where("user_id", "!=", $user->user_id)
+            ->first();
+
+        if ($existUsername) {
+            return redirect()->back()->with([
+                'message' => 'Username is already taken!',
+                'type' => 'error'
+            ])->withInput();
+        }
+        
+        if ($existEmail) {
+            return redirect()->back()->with([
+                'message' => 'Email is already taken!',
+                'type' => 'error'
+            ])->withInput();
+        }
+
+        if ($existContactNo) {
+            return redirect()->back()->with([
+                'message' => 'Contact number is already taken!',
+                'type' => 'error'
+            ])->withInput();
+        }
 
         $role_id = $this->getRoleByPosition($validated['position']);
         $user->role_id = $role_id;
         $user->department_id = $validated['department'];
 
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->fill($validated);
+        unset($user->password);
 
         if($user->save($validated)) {
             return redirect()->route('superadmin.users')->with([

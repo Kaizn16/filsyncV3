@@ -11,23 +11,13 @@ class AppConstants
         'DEAN',
         'SECRETARY',
         'TEACHER',
+        'HR'
     ];
 
     const SEMESTERS = [
         '1st Semester',
         '2nd Semester',
         'Summer'
-    ];
-
-    const SECTIONS = [
-        'A',
-        'B',
-        'C',
-        'D',
-        'E',
-        'F',
-        'G',
-        'H',
     ];
 
     const WEEKDAYS = [
@@ -37,6 +27,13 @@ class AppConstants
         'Thursday',
         'Friday',
         'Saturday',
+    ];
+
+    const YEAR_LEVELS = [
+        '1ST YEAR',
+        '2ND YEAR',
+        '3RD YEAR',
+        '4TH YEAR',
     ];
 
 }

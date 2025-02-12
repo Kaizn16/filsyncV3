@@ -18,6 +18,8 @@ class CoursesNo extends Model
         'course_no',
         'descriptive_title',
         'credits',
+        'year_level',
+        'semester',
     ];
 
 
@@ -26,7 +28,6 @@ class CoursesNo extends Model
         return $this->belongsTo(Department::class, 'department_id');
 
     }
-
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id');

@@ -1,0 +1,255 @@
+department_id,course_id,course_no,descriptive_title,credits,year_level,semester
+5,16,GE 1,Understanding the Self,3,1ST YEAR,1ST SEMESTER
+5,16,GE 2,Readings in Philippine History,3,1ST YEAR,1ST SEMESTER
+5,16,GE 3,The Contemporary World with IP Education,3,1ST YEAR,1ST SEMESTER
+5,16,BIBLE 1,Understanding the Old Testament,3,1ST YEAR,1ST SEMESTER
+5,16,CC 1,Introduction to Computing,3,1ST YEAR,1ST SEMESTER
+5,16,CC 2,Computer Programming 1,3,1ST YEAR,1ST SEMESTER
+5,16,PE 1,Physical Fitness,2,1ST YEAR,1ST SEMESTER
+5,16,NSTP 1,National Service and Training Program 1,3,1ST YEAR,1ST SEMESTER
+5,16,MATH 1,Pre-Calculus,3,1ST YEAR,1ST SEMESTER
+5,16,CE 1,Cultural Enrichment 1,0,1ST YEAR,1ST SEMESTER
+5,16,GE 4,Mathematics in the Modern World,3,1ST YEAR,2ND SEMESTER
+5,16,GE 5,Purposive Communication ,3,1ST YEAR,2ND SEMESTER
+5,16,GE 6,Art Appreciation,3,1ST YEAR,2ND SEMESTER
+5,16,Bible 2,Understanding the New Testament,3,1ST YEAR,2ND SEMESTER
+5,16,CC 3,Computer Programming 2,3,1ST YEAR,2ND SEMESTER
+5,16,IT 1,Introduction to Human Computer Interaction,3,1ST YEAR,2ND SEMESTER
+5,16,IT 2,Discrete Mathematics,3,1ST YEAR,2ND SEMESTER
+5,16,PE 2,Individual and Dual Sports,2,1ST YEAR,2ND SEMESTER
+5,16,NSTP 2,National Service and Training Program 2,3,1ST YEAR,2ND SEMESTER
+5,16,CE 2,Cultural Enrichment 2,0,1ST YEAR,2ND SEMESTER
+5,16,GE 7,"Science, Technology and  Society ",3,2ND YEAR,1ST SEMESTER
+5,16,GE 8,Ethics with Peace Studies ,3,2ND YEAR,1ST SEMESTER
+5,16,GE 9,Living in the IT Era,3,2ND YEAR,1ST SEMESTER
+5,16,CC 4,Data  Structures and Algorithms ,3,2ND YEAR,1ST SEMESTER
+5,16,CC 5,Information Management ,3,2ND YEAR,1ST SEMESTER
+5,16,ITE 1,IT Elective 1,3,2ND YEAR,1ST SEMESTER
+5,16,PT 1,IT Professional Track 1,3,2ND YEAR,1ST SEMESTER
+5,16,PE 3,Rythmic Activities,2,2ND YEAR,1ST SEMESTER
+5,16,CE 3,Cultural Enrichment 3,0,2ND YEAR,1ST SEMESTER
+5,16,GE 10,Fundamentals of Accounting,3,2ND YEAR,2ND SEMESTER
+5,16,GE 11,Gender and Society,3,2ND YEAR,2ND SEMESTER
+5,16,GE 12,"Life, Works and Writings of Rizal",3,2ND YEAR,2ND SEMESTER
+5,16,IT 4,Networking 1,3,2ND YEAR,2ND SEMESTER
+5,16,IT 5,Integrative Programming and Technologies,3,2ND YEAR,2ND SEMESTER
+5,16,ITE 2,IT Elective 2 ,3,2ND YEAR,2ND SEMESTER
+5,16,PT 2,IT Professional Track 2,3,2ND YEAR,2ND SEMESTER
+5,16,PE 4,Team Sports,2,2ND YEAR,2ND SEMESTER
+5,16,CE 4,Cultural Enrichment 4,0,2ND YEAR,2ND SEMESTER
+5,16,IT 3,Quantitative Methods (Incl. Modelling and Simulation),3,3RD YEAR,1ST SEMESTER
+5,16,IT 6,Advance Database Systems,3,3RD YEAR,1ST SEMESTER
+5,16,IT 7,Networking 2,3,3RD YEAR,1ST SEMESTER
+5,16,IT 8,Systems Integration Architecture  ,3,3RD YEAR,1ST SEMESTER
+5,16,ITE 3,IT Elective 3,3,3RD YEAR,1ST SEMESTER
+5,16,PT 3,IT Professional Track 3,3,3RD YEAR,1ST SEMESTER
+5,16,Prof.Ed. 1,Professional Enrichment 1,0,3RD YEAR,1ST SEMESTER
+5,16,CC 6,Applications Development and Emerging Technologies,3,3RD YEAR,2ND SEMESTER
+5,16,IT 9,Event Driven Programming,3,3RD YEAR,2ND SEMESTER
+5,16,IT 10,Information Assurance and Security 1,3,3RD YEAR,2ND SEMESTER
+5,16,IT 11,Social Issues and Professional Practice,3,3RD YEAR,2ND SEMESTER
+5,16,ITE 4,IT Elective 4,3,3RD YEAR,2ND SEMESTER
+5,16,PT 4,IT Professional Track 4,3,3RD YEAR,2ND SEMESTER
+5,16,Prof.Ed. 2,Professional Enrichment 2,0,3RD YEAR,2ND SEMESTER
+5,16,IT 12,Information Assurance and Security 2,3,3RD YEAR,SUMMER
+5,16,IT 13,Capstone Project and Research I,3,3RD YEAR,SUMMER
+5,16,IT 14,Systems Administration and Maintenance,3,4TH YEAR,1ST SEMESTER
+5,16,IT 16,Capstone Project and Research 2,3,4TH YEAR,1ST SEMESTER
+5,16,PT 5,IT Professional Track 5,3,4TH YEAR,1ST SEMESTER
+5,16,Prof.Ed. 3,Professional Enrichment 3,0,4TH YEAR,1ST SEMESTER
+5,16,IT 16,Practicum/OJT/Internship (486 Hours) ,3,4TH YEAR,2ND SEMESTER
+5,16,PT 6,IT Professional Track 6,3,4TH YEAR,2ND SEMESTER
+5,16,Prof.Ed. 4,Professional Enrichment 4,0,4TH YEAR,2ND SEMESTER
+5,15,GE 1,Understanding the Self,3,1ST YEAR,1ST SEMESTER
+5,15,GE 2,Readings in Philippine History,3,1ST YEAR,1ST SEMESTER
+5,15,GE 3,The Contemporary World with IP Education,3,1ST YEAR,1ST SEMESTER
+5,15,BIBLE 1,Understanding the Old Testament,3,1ST YEAR,1ST SEMESTER
+5,15,CC 1,Introduction to Computing,3,1ST YEAR,1ST SEMESTER
+5,15,CC 2,Computer Programming 1,3,1ST YEAR,1ST SEMESTER
+5,15,PE 1,Physical Fitness,2,1ST YEAR,1ST SEMESTER
+5,15,NSTP 1,National Service and Training Program 1,3,1ST YEAR,1ST SEMESTER
+5,15,MATH 1,Pre-Calculus,3,1ST YEAR,1ST SEMESTER
+5,15,CE 1,Cultural Enrichment 1,0,1ST YEAR,1ST SEMESTER
+5,15,GE 4,Mathematics in the Modern World,3,1ST YEAR,2ND SEMESTER
+5,15,GE 5,Purposive Communication ,3,1ST YEAR,2ND SEMESTER
+5,15,GE 6,Art Appreciation,3,1ST YEAR,2ND SEMESTER
+5,15,Bible 2,Understanding the New Testament,3,1ST YEAR,2ND SEMESTER
+5,15,CC 3,Computer Programming 2,3,1ST YEAR,2ND SEMESTER
+5,15,CS 1,Introduction to Human Computer Interaction,3,1ST YEAR,2ND SEMESTER
+5,15,CS 2,Discrete Mathematics,3,1ST YEAR,2ND SEMESTER
+5,15,PE 2,Individual and Dual Sports,2,1ST YEAR,2ND SEMESTER
+5,15,NSTP 2,National Service and Training Program 2,3,1ST YEAR,2ND SEMESTER
+5,15,CE 2,Cultural Enrichment 2,0,1ST YEAR,2ND SEMESTER
+5,15,GE 7,"Science, Technology and  Society ",3,2ND YEAR,1ST SEMESTER
+5,15,GE 8,Ethics with Peace Studies,3,2ND YEAR,1ST SEMESTER
+5,15,GE 9,Living in the IT Era,3,2ND YEAR,1ST SEMESTER
+5,15,CC 4,Data  Structures and Algorithms ,3,2ND YEAR,1ST SEMESTER
+5,15,CC 5,Information Management,3,2ND YEAR,1ST SEMESTER
+5,15,CSE 1,CS Elective 1,3,2ND YEAR,1ST SEMESTER
+5,15,PT 1,CS Professional Track 1,3,2ND YEAR,1ST SEMESTER
+5,15,PE 3,Rhythmic Activities,2,2ND YEAR,1ST SEMESTER
+5,15,CE 3,Cultural Enrichment 3,0,2ND YEAR,1ST SEMESTER
+5,15,GE 10,Fundamentals of Accounting,3,2ND YEAR,2ND SEMESTER
+5,15,GE 11,Gender and Society,3,2ND YEAR,2ND SEMESTER
+5,15,GE 12,"Life, Works and Writings of Rizal",3,2ND YEAR,2ND SEMESTER
+5,15,CS 4,Networking 1,3,2ND YEAR,2ND SEMESTER
+5,15,CS 5,Object Oriented Programming,3,2ND YEAR,2ND SEMESTER
+5,15,CSE 2,CS Elective 2,3,2ND YEAR,2ND SEMESTER
+5,15,PT 2,CS Professional Track 2,3,2ND YEAR,2ND SEMESTER
+5,15,PE 4,Team Sports,2,2ND YEAR,2ND SEMESTER
+5,15,CE 4,Cultural Enrichment 4,0,2ND YEAR,2ND SEMESTER
+5,15,CS 7,Systems Integration Architecture,3,3RD YEAR,1ST SEMESTER
+5,15,CS 8,Automata Theory and Formal Languages,3,3RD YEAR,1ST SEMESTER
+5,15,CS 9,Architecture and Organization,3,3RD YEAR,1ST SEMESTER
+5,15,CS 12,Software Engineering 1,3,3RD YEAR,1ST SEMESTER
+5,15,CSE 3,CS Elective 3,3,3RD YEAR,1ST SEMESTER
+5,15,PT 3,CS Professional Track 3,3,3RD YEAR,1ST SEMESTER
+5,15,Prof.Ed. 1,Professional Enrichment 1,0,3RD YEAR,1ST SEMESTER
+5,15,CC 6,Applications Development and Emerging Technologies,3,3RD YEAR,2ND SEMESTER
+5,15,CS 10,Information Assurance and Security,3,3RD YEAR,2ND SEMESTER
+5,15,CS 11,Social Issues and Professional Practice,3,3RD YEAR,2ND SEMESTER
+5,15,CS 14,Software Engineering 2,3,3RD YEAR,2ND SEMESTER
+5,15,CSE 4,CS Elective 4,3,3RD YEAR,2ND SEMESTER
+5,15,PT 4,CS Professional Track 4,3,3RD YEAR,2ND SEMESTER
+5,15,Prof.Ed. 2,Professional Enrichment 2,0,3RD YEAR,2ND SEMESTER
+5,15,CS 13,CS Thesis Writing 1,3,3RD YEAR,SUMMER
+5,15,CS 6,Programming Languages,3,3RD YEAR,SUMMER
+5,15,CS 15,CS Thesis Writing 2,3,4TH YEAR,1ST SEMESTER
+5,15,CS 17,Operating Systems,3,4TH YEAR,1ST SEMESTER
+5,15,PT 5,CS Professional Track 5,3,4TH YEAR,1ST SEMESTER
+5,15,Prof.Ed. 3,Professional Enrichment 3,0,4TH YEAR,1ST SEMESTER
+5,15,CS 16,Practicum (162 Hours),3,4TH YEAR,2ND SEMESTER
+5,15,PT 6,CS Professional Track 6 ,3,4TH YEAR,2ND SEMESTER
+5,15,Prof.Ed. 4,Professional Enrichment 4,0,4TH YEAR,2ND SEMESTER
+7,19,GE 1,Understading the Self,3,1ST YEAR,1ST SEMESTER
+7,19,GE 2,Readings in the Philippine History,3,1ST YEAR,1ST SEMESTER
+7,19,GE 9,Living in the IT Era,3,1ST YEAR,1ST SEMESTER
+7,19,BIBLE 101,Understanding the Old Testament,3,1ST YEAR,1ST SEMESTER
+7,19,LEA 1,Law Enforcement Organization and Administration (Inter-Aagency Approach,4,1ST YEAR,1ST SEMESTER
+7,19,Criminology 1,Introduction to Criminilogy,3,1ST YEAR,1ST SEMESTER
+7,19,PE 1 (PATHFIT 1),Fundamentals of Martial Arts (TAEKWONDO),2,1ST YEAR,1ST SEMESTER
+7,19,NSTP/ROTC,Reserved Officers Training Corps,3,1ST YEAR,1ST SEMESTER
+7,19,CLFM-1,"Character Formation 1, Nationalism and Patriotism",3,1ST YEAR,1ST SEMESTER
+7,19,CE 1,Cultural Enrichment ,0,1ST YEAR,1ST SEMESTER
+7,19,GE 3,The Contemporary World,3,1ST YEAR,2ND SEMESTER
+7,19,GE 4,Mathematics in the Modern World,3,1ST YEAR,2ND SEMESTER
+7,19,GE 5,Purposive Communication,3,1ST YEAR,2ND SEMESTER
+7,19,GE 10,Philippine Indigenous Communities,3,1ST YEAR,2ND SEMESTER
+7,19,CLJ 1,Introduction to Philippine Criminal Justice System,3,1ST YEAR,2ND SEMESTER
+7,19,Bible 102,Understading the New Testament,3,1ST YEAR,2ND SEMESTER
+7,19,Criminilogy 2,Theories of Crime Causation ,3,1ST YEAR,2ND SEMESTER
+7,19,CFLM-2,"Character Formation 2 - Leadership, Decision Making, Management and Administration",3,1ST YEAR,2ND SEMESTER
+7,19,PE 2 (PATHFIT 2),Disarming Techniques,2,1ST YEAR,2ND SEMESTER
+7,19,NSTP/ROTC,Reserved Officers Training Corps,3,1ST YEAR,2ND SEMESTER
+7,19,CE 2,Cultural Enrichment,0,1ST YEAR,2ND SEMESTER
+7,19,CDI 1,Fundamentals of Criminal Investigation and Intelligence,4,2ND YEAR,1ST SEMESTER
+7,19,CDI 2,Specialized Crime Investigation 1 with Legal Medicine,3,2ND YEAR,1ST SEMESTER
+7,19,Forensic 1,Forensic Photography,3,2ND YEAR,1ST SEMESTER
+7,19,CLJ 2,Human Rights Education,3,2ND YEAR,1ST SEMESTER
+7,19,CLJ 3,Criminal Law (Book 1),3,2ND YEAR,1ST SEMESTER
+7,19,LEA 2,Comparative Models in Policing,3,2ND YEAR,1ST SEMESTER
+7,19,LEA 3,Introduction to Industriaal Security Concepts,3,2ND YEAR,1ST SEMESTER
+7,19,Criminology 3,Human Behavior and Victimology,3,2ND YEAR,1ST SEMESTER
+7,19,PE 3 (PATHFIT 3),First Aid and Water Safety,2,2ND YEAR,1ST SEMESTER
+7,19,GE 8,Ethics,3,2ND YEAR,1ST SEMESTER
+7,19,CE 3,Cultural Enrichment,0,2ND YEAR,1ST SEMESTER
+7,19,CA 1,Institutional Corrections,3,2ND YEAR,2ND SEMESTER
+7,19,Forensic 2,Personal Indentification Techniques,3,2ND YEAR,2ND SEMESTER
+7,19,Forensic 3,Forensic Chemistry and Toxicology,5,2ND YEAR,2ND SEMESTER
+7,19,CDI 3,Specialized Crime Investigation 2 with Simulation on Interrogation and Interview,3,2ND YEAR,2ND SEMESTER
+7,19,CDI 4,Technical Englis 1 (Investigative Report Writing and Presentation),3,2ND YEAR,2ND SEMESTER
+7,19,LEA 4,Law Enforcment Operations and Planning With Crime Mapping,3,2ND YEAR,2ND SEMESTER
+7,19,CLJ 4,Criminal Law (Book 2),4,2ND YEAR,2ND SEMESTER
+7,19,PE 4 (PATHFIT 4),Fundamentals of Markmanship,2,2ND YEAR,2ND SEMESTER
+7,19,GE 12,Life and Works of Rizal,3,2ND YEAR,2ND SEMESTER
+7,19,CE 4,Cultural Enrichment,0,2ND YEAR,2ND SEMESTER
+7,19,CA 2,Non - Institutional Corrections,3,3RD YEAR,1ST SEMESTER
+7,19,CDI 5,Traffic Management and Accident Investigation with Driving,3,3RD YEAR,1ST SEMESTER
+7,19,CDI 6,Technical Englis 2 (Legal Forms),3,3RD YEAR,1ST SEMESTER
+7,19,CDI 7,Fire Protection and Arson Investigation,3,3RD YEAR,1ST SEMESTER
+7,19,Criminilogy 4,Professional Conduct and Ethical Standards,3,3RD YEAR,1ST SEMESTER
+7,19,Forensic 4,Questioned Documents Examination,3,3RD YEAR,1ST SEMESTER
+7,19,CLJ 5,Evidence,3,3RD YEAR,1ST SEMESTER
+7,19,Criminilogy 5,Criminological Research 1 (Research Methods with Applied Statistics),3,3RD YEAR,1ST SEMESTER
+7,19,AdGE,General Chemistry (Organic),3,3RD YEAR,1ST SEMESTER
+7,19,CE 5,Cultural Enrichment,0,3RD YEAR,1ST SEMESTER
+7,19,CA 3,Therapeutic Modalities,2,3RD YEAR,2ND SEMESTER
+7,19,CLK 6,Criminal Procedure and Court Testimony,3,3RD YEAR,2ND SEMESTER
+7,19,Forensic 5,Lie Detection Techniques,3,3RD YEAR,2ND SEMESTER
+7,19,Forensic 6 ,Forensic Ballistics,3,3RD YEAR,2ND SEMESTER
+7,19,Criminology 6,Juvenile Delinquency and Juvenile Justice System,3,3RD YEAR,2ND SEMESTER
+7,19,Criminology 7,Dispute Resolution and Crises/Incident Management,3,3RD YEAR,2ND SEMESTER
+7,19,Criminology 8,Criminological Resaerch 2 (Thesis),3,3RD YEAR,2ND SEMESTER
+7,19,CDI 8,Vice and Drug Education and Control,3,3RD YEAR,2ND SEMESTER
+7,19,CDI 9,Introduction to Cybercrime and Enviromental Laws and Protection,3,3RD YEAR,2ND SEMESTER
+7,19,CIIT,Criminilogy In-House Intensive Training,0,3RD YEAR,2ND SEMESTER
+7,19,CE 6,Cultural Enrichment,0,3RD YEAR,2ND SEMESTER
+7,19,GE 6 ,Art Appreciation,3,1ST YEAR,SUMMER
+7,19,GE 7,"Science, Technology and Society",3,1ST YEAR,SUMMER
+7,19,GE 11,Gender and Society,3,1ST YEAR,SUMMER
+7,19,Criminology Practicum 1,Intership (OJT  1),3,4TH YEAR,1ST SEMESTER
+7,19,Enhancement 1,"CLJ, LEA, and CRIMINOLOGY",3,4TH YEAR,1ST SEMESTER
+7,19,CE 7,Cultural Enrichment,0,4TH YEAR,1ST SEMESTER
+7,19,Criminology Practicum 2,Intership (OJT 2),3,4TH YEAR,2ND SEMESTER
+7,19,Enhancement 2,"FORENSIC, CORRECTIONAL ADMINISTRATION and CDI",3,4TH YEAR,2ND SEMESTER
+7,19,Compre,Comprehensive Assesment,0,4TH YEAR,2ND SEMESTER
+7,19,CE 8,Cultural Enrichment,0,4TH YEAR,2ND SEMESTER
+4,14,EMath 1,Calculus 1,3,1ST YEAR,1ST SEMESTER
+4,14,Emath 2,Engineering Data Analysis,3,1ST YEAR,1ST SEMESTER
+4,14,EChem 1,Chemisry for Engineers,4,1ST YEAR,1ST SEMESTER
+4,14,Engr 1,Computer-Aided Drafting,1,1ST YEAR,1ST SEMESTER
+4,14,Bible 1,Undestanding the Old Testament,3,1ST YEAR,1ST SEMESTER
+4,14,GE 4,Mathematics in the Modern World,3,1ST YEAR,1ST SEMESTER
+4,14,PE 1 (PATHFIT 1) ,Movement Competency Training,2,1ST YEAR,1ST SEMESTER
+4,14,EMath 3,Calculus 2,3,1ST YEAR,2ND SEMESTER
+4,14,Ephys 1,Physics for Engineers,4,1ST YEAR,2ND SEMESTER
+4,14,ME 1,Physics 2,4,1ST YEAR,2ND SEMESTER
+4,14,EComp 1,Computer Programming,2,1ST YEAR,2ND SEMESTER
+4,14,GE 1,Undestanding the Self,3,1ST YEAR,2ND SEMESTER
+4,14,GE 7,"Science, Technology and Society",3,1ST YEAR,2ND SEMESTER
+4,14,PE 2 (PATHFIT 2),Exercised-based Fitness Activities,2,1ST YEAR,2ND SEMESTER
+4,14,NSTP 2,National Service Training Program,3,1ST YEAR,2ND SEMESTER
+4,14,EMath 4 ,Diffrential Equations,3,2ND YEAR,1ST SEMESTER
+4,14,ME 2,Materials Science and Engineering,3,2ND YEAR,1ST SEMESTER
+4,14,EE 1,Circuits 1,4,2ND YEAR,1ST SEMESTER
+4,14,ECE 1,Electronics 1: Electronic Devices and Circuits,4,2ND YEAR,1ST SEMESTER
+4,14,GE 9,Living in the IT Era,3,2ND YEAR,1ST SEMESTER
+4,14,PE 3 (PATHFIT 3),Sports ,2,2ND YEAR,1ST SEMESTER
+4,14,EE 2,Circuits 2,4,2ND YEAR,2ND SEMESTER
+4,14,ECE 2,Advanced Engineering Mathematics for ECE,4,2ND YEAR,2ND SEMESTER
+4,14,ECE 3,Electromagnetics,4,2ND YEAR,2ND SEMESTER
+4,14,ECE 4,Electronics 2: Electronic Circuit Analysis and Design ,4,2ND YEAR,2ND SEMESTER
+4,14,ECE 5,Communications 1: Principles of Communication Systems,4,2ND YEAR,2ND SEMESTER
+4,14,PE 4 (PATHFIT 4),Sports,2,2ND YEAR,2ND SEMESTER
+4,14,Engr 5 ,Environmental Science and Engineering,3,3RD YEAR,1ST SEMESTER
+4,14,ECE 6,Electronics 3: Electronic Systems and Design,4,3RD YEAR,1ST SEMESTER
+4,14,ECE 7,"Signals, Spectra, Signal Processing",4,3RD YEAR,1ST SEMESTER
+4,14,ECE 8,Communications 2: Modulation and Coding Techniques,4,3RD YEAR,1ST SEMESTER
+4,14,ECE 9,Digital Electronics 1: Logic Circuits and Switching Theory,4,3RD YEAR,1ST SEMESTER
+4,14,ECE 11,Communications 3: Data Communications,4,3RD YEAR,2ND SEMESTER
+4,14,ECE 12,"Communications 4: Transmission Media, Antenna System and Design",4,3RD YEAR,2ND SEMESTER
+4,14,ECE 13,"Digital Electronics 2: Microprocessor, Microcontroller Systems and Design",4,3RD YEAR,2ND SEMESTER
+4,14,ECE 14,Feedback and Control Systems,4,3RD YEAR,2ND SEMESTER
+4,14,ECE 15,Methods of Research,3,3RD YEAR,2ND SEMESTER
+4,14,GE 8,Ethics and Peace Studies,3,3RD YEAR,2ND SEMESTER
+4,14,ECE 16,Design 1/Capstone Project 1,1,4TH YEAR,1ST SEMESTER
+4,14,ECE 17,Seminars/Colloquium,1,4TH YEAR,1ST SEMESTER
+4,14,ECE 18,Advanced Communication System & Design (Wireless),4,4TH YEAR,1ST SEMESTER
+4,14,ECE 23,Professional Course Enhancement 1,2,4TH YEAR,1ST SEMESTER
+4,14,Engr 4,Technopreneurship 101,3,4TH YEAR,1ST SEMESTER
+4,14,Engr 3,Engineering Management,2,4TH YEAR,1ST SEMESTER
+4,14,GE 2,Readings in Phillipine History,3,4TH YEAR,1ST SEMESTER
+4,14,GEE 6,Art Appreciation,3,4TH YEAR,1ST SEMESTER
+4,14,ECE 20,Design 2/Capstone Project 2,1,4TH YEAR,2ND SEMESTER
+4,14,ECE 21,Advanced Networking ,4,4TH YEAR,2ND SEMESTER
+4,14,ECE 24,Professional Course Enhancement II,2,4TH YEAR,2ND SEMESTER
+4,14,ECE 10,"ECE Laws, Contracts, Ethics, Standards & Safety",3,4TH YEAR,2ND SEMESTER
+4,14,Engr 2,Engineering Economics,3,4TH YEAR,2ND SEMESTER
+4,14,EMath 100 ,Math Refresher ,0,1ST YEAR,SUMMER
+4,14,Bible 2,Understading the New Testament,3,1ST YEAR,SUMMER
+4,14,GE 10,The Entrepreneural Mind,3,1ST YEAR,SUMMER
+4,14,GE 5,Purposive Communication,3,1ST YEAR,SUMMER
+4,14,GE 11,Gender and Society,3,2ND YEAR,SUMMER
+4,14,GE 12,Life and Works of Rizal,3,2ND YEAR,SUMMER
+4,14,GE 3,Contemporary World and IP Education,3,2ND YEAR,SUMMER
+4,14,ECE 400,On-The-Job Training (240 Hours),3,3RD YEAR,SUMMER

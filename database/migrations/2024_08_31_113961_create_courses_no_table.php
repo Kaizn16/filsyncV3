@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('course_no');
             $table->string('descriptive_title');
             $table->integer('credits');
+            $table->string('year_level');
+            $table->string('semester');
             $table->timestamps();
 
 

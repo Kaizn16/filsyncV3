@@ -14,14 +14,15 @@ class AcademicSetingsTableSeeder extends Seeder
      */
     public function run(): void
     {
+        $last_year = Carbon::now()->subYear()->year;
         $current_year = Carbon::now()->year;
-        $next_year = Carbon::now()->addYear()->year;
-        $semester = '1st Semester';
+        $semester = '2nd Semester';
 
         $academic_setting = [
-            ['start_year' => $current_year, 'end_year' => $next_year, 'semester' => $semester],
+            ['academic_year' => $last_year . '-' . $current_year, 'semester' => $semester],
         ];
 
         DB::table('academic_settings')->insert($academic_setting);
     }
+
 }

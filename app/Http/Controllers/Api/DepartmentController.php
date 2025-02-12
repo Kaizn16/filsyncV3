@@ -7,6 +7,7 @@ use App\Models\CoursesNo;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentController extends Controller
 {
@@ -14,14 +15,20 @@ class DepartmentController extends Controller
     {
         $position = request()->query('position');
         $searchTerm = request()->query('search');
+        $department_id = Auth::user()->department_id;
+
 
         if ($position !== 'VPAA' && $position !== 'REGISTRAR') {
             $query = Department::query();
 
+            if (!empty($department_id)) {
+                $query->where('department_id', $department_id);
+            }
+    
             if (!empty($searchTerm)) {
                 $query->where(function ($query) use ($searchTerm) {
                     $query->where('department_name', 'LIKE', '%' . $searchTerm . '%')
-                        ->orWhere('abbreviation', 'LIKE', '%' . $searchTerm . '%');
+                          ->orWhere('abbreviation', 'LIKE', '%' . $searchTerm . '%');
                 });
             }
 

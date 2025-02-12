@@ -38,23 +38,9 @@
             </li>
 
             <li class="item-menu">
-                <a href="{{ route('superadmin.schedules') }}" class="link {{ request()->routeIs('superadmin.schedules') ? 'active' : '' }}" title="Schedules">
-                    <i class="material-icons icon">today</i>
-                    <span class="link-name">Schedules</span>
-                </a>
-            </li>
-
-            <li class="item-menu">
                 <a href="{{ route('superadmin.rooms') }}" class="link {{ request()->routeIs('superadmin.rooms')  || request()->routeIs('superadmin.schedules.subjects') ? 'active' : '' }}" title="Rooms">
                     <i class="material-icons icon">room_preferences</i>
                     <span class="link-name">Rooms</span>
-                </a>
-            </li>
-
-            <li class="item-menu">
-                <a href="" class="link" title="Reports">
-                    <i class="material-icons icon">insert_chart</i>
-                    <span class="link-name">Reports</span>
                 </a>
             </li>
 

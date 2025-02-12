@@ -18,6 +18,7 @@ class RolesTableSeeder extends Seeder
             ['role_type' => 'teacher'],
             ['role_type' => 'vpaa'],
             ['role_type' => 'registrar'],
+            ['role_type' => 'hr'],
         ];
 
         DB::table('roles')->insert($roles);

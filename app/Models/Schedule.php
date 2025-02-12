@@ -13,23 +13,20 @@ class Schedule extends Model
     protected $primaryKey = 'schedule_id';
 
     protected $fillable = [
-        'department_id',
+        'schedule_draft_id',
+        'class_id',
+        'course_no_id',
         'user_id',
-        'course_id',
-        'subject_id', 
         'room_id', 
         'start_time', 
-        'end_time', 
-        'weekdays',
-        'sections',
-        'year_level_id',
-        'semester',
+        'end_time',
+        'combined_schedule_id'
     ];
 
-    protected $casts = [
-        'weekdays' => 'array',
-        'sections' => 'array'
-    ];
+    public function scheduleDraft()
+    {
+        return $this->belongsTo(ScheduleDraft::class, 'schedule_draft_id');
+    }
 
     public function department()
     {
@@ -46,9 +43,9 @@ class Schedule extends Model
         return $this->belongsTo(Course::class,'course_id');
     }
 
-    public function subject()
+    public function course_no()
     {
-        return $this->belongsTo(Subject::class, 'subject_id');
+        return $this->belongsTo(CoursesNo::class,'course_no_id');
     }
 
     public function room()
@@ -56,9 +53,13 @@ class Schedule extends Model
         return $this->belongsTo(Room::class,'room_id');
     }
 
-    public function year_level()
+    public function section()
     {
-        return $this->belongsTo(YearLevel::class,'year_level_id');
+        return $this->belongsTo(Section::class, 'section_id');
     }
 
+    public function weekdays()
+    {
+        return $this->hasMany(ScheduleWeekday::class, 'schedule_id');
+    }
 }

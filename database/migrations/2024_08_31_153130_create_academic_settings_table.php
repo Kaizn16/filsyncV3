@@ -14,9 +14,8 @@ return new class extends Migration
     {
         Schema::create('academic_settings', function (Blueprint $table) {
             $table->id('academic_setting_id');
-            $table->year('start_year');
-            $table->year('end_year');
-            $table->enum('semester', ['1st Semester', '2nd Semester', 'Summer']);            
+            $table->string('academic_year');
+            $table->enum('semester', ['1st Semester', '2nd Semester', 'Summer']);        
             $table->timestamps();
         });
     }

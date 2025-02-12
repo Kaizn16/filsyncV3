@@ -154,22 +154,23 @@ function deleteRoom(room_id) {
 
 const searchInput = document.getElementById('search');
 const buildingFilter = document.getElementById('buildingFilter');
+const paginateFilter = document.getElementById('paginate');
 const tableData = document.querySelector('.tableData');
-let debounceTimer;
 let currentPage = 1;
+let debounceTimer;
 
-async function fetchRooms(search = '', building = '', page = 1) {
+async function fetchRooms(search = '', building = '', page = 1, paginate = 10) {
     try {
-        const response = await fetch(`${FETCH_ROOMS_ROUTE}?search=${search}&building=${building}&page=${page}`);
+        const response = await fetch(`${FETCH_ROOMS_ROUTE}?search=${search}&building=${building}&page=${page}&paginate=${paginate}`);
         const data = await response.json();
 
-        
         populateTable(data.data);
-        updatePagination(data);
+        updatePagination(data, paginate);
     } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching rooms:', error);
     }
 }
+
 
 function populateTable(rooms) {
     tableData.innerHTML = '';
@@ -199,13 +200,21 @@ function populateTable(rooms) {
 function updatePagination(data) {
     const previousButton = document.querySelector('.pagination .previous');
     const nextButton = document.querySelector('.pagination .next');
+    const paginationContainer = document.querySelector('.page-info');
 
+    if (paginate === 'All') {
+        previousButton.classList.add('disabled');
+        previousButton.onclick = null;
+        nextButton.classList.add('disabled');
+        nextButton.onclick = null;
+        return;
+    }
     
     if (data.prev_page_url) {
         previousButton.classList.remove('disabled');
         previousButton.onclick = () => {
             currentPage--;
-            fetchRooms(searchInput.value, buildingFilter.value, currentPage);
+            fetchRooms(searchInput.value, buildingFilter.value, currentPage, paginateValue);
         };
     } else {
         previousButton.classList.add('disabled');
@@ -217,12 +226,15 @@ function updatePagination(data) {
         nextButton.classList.remove('disabled');
         nextButton.onclick = () => {
             currentPage++;
-            fetchRooms(searchInput.value, buildingFilter.value, currentPage);
+            fetchRooms(searchInput.value, buildingFilter.value, currentPage, paginateValue);
         };
     } else {
         nextButton.classList.add('disabled');
         nextButton.onclick = null;
     }
+
+    const pageInfo = `<span class="page-number">Showing page ${data.current_page} | ${data.last_page}</span>`;
+    paginationContainer.innerHTML = pageInfo;
 }
 
 searchInput.addEventListener('input', () => {
@@ -230,16 +242,27 @@ searchInput.addEventListener('input', () => {
     debounceTimer = setTimeout(() => {
         const searchValue = searchInput.value;
         const buildingValue = buildingFilter.value;
+        const paginateValue = paginateFilter.value;
         currentPage = 1;
-        fetchRooms(searchValue, buildingValue, currentPage);
+        fetchRooms(searchValue, buildingValue, currentPage, paginateValue);
     }, 300);
 });
 
 buildingFilter.addEventListener('change', () => {
     const searchValue = searchInput.value;
     const buildingValue = buildingFilter.value;
+    const paginateValue = paginateFilter.value;
     currentPage = 1;
-    fetchRooms(searchValue, buildingValue, currentPage);
+    fetchRooms(searchValue, buildingValue, currentPage, paginateValue);
 });
+
+paginateFilter.addEventListener('change', () => {
+    const searchValue = searchInput.value;
+    const buildingValue = buildingFilter.value;
+    const paginateValue = paginateFilter.value === '' ? '' : parseInt(paginateFilter.value, 10);
+    currentPage = 1;
+    fetchRooms(searchValue, buildingValue, currentPage, paginateValue);
+});
+
 
 fetchRooms();

@@ -19,7 +19,10 @@ class IsAdmin
         if(Auth::check() && Auth::user()->role->role_type == "admin") {
             return $next($request);
         }
-        
-        return redirect()->route('auth.logout');
+
+        return redirect()->back()->with([
+            'message' => 'You are not authorized to access this!',
+            'type' => 'warning'
+        ]);        
     }
 }

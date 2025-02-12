@@ -24,8 +24,3 @@ Route::get('/Fetch/Department/Courses/Course_No', [DepartmentController::class, 
 Route::get('/Fetch/Department/Courses/Course_No/Details', [DepartmentController::class, 'fetchCourseNoDetails'])
     ->name('fetch.courseno.details')
     ->middleware('auth');
-
-
-Route::get('Fetch/Subjects', [ScheduleController::class, 'fetchSubjectsByCourse'])
-    ->name('fetch.subjects')
-    ->middleware('auth');

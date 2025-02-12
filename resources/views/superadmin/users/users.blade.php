@@ -54,12 +54,15 @@
     </section>
 @endsection
 @section('script')
+<script>
+    const formOldInputs = @json(old());
+</script>
 <script src="{{ asset('assets/js/users/users.js') }}"></script>
 @if (session('message'))
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         showToast("{{ session('type') }}", "{{ session('message') }}");
-    });
+    }); 
 </script>
 @endif
 @endsection

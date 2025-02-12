@@ -30,27 +30,34 @@
                         <button type="button" id="NewRoom"><i class="material-icons icon">add</i>New Room</button>
                     </div>
                 </heder>
-                <table class="table">
-                    <thead>
-                        <tr class="heading">
-                            <th>Building Name</th>
-                            <th>Room Name</th>
-                            <th>Max Seats</th>
-                            <th class="pagination">
-                                <span class="previous" title="Previous"><i class="material-icons">keyboard_arrow_left</i></span>
-                                <span class="next" title="Next"><i class="material-icons">keyboard_arrow_right</i></span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody class="tableData">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="page-info">
+                    
+                </div>
+                <div class="table-wrapper">
+                    <table class="table">
+                        <thead>
+                            <tr class="heading">
+                                <th>Building Name</th>
+                                <th>Room Name</th>
+                                <th>Max Seats</th>
+                                <th class="pagination">
+                                    <select name="paginate" id="paginate">
+                                        <option value="10" selected>10</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="1000">1000</option>
+                                    </select>
+                                    <span class="previous" title="Previous"><i class="material-icons">keyboard_arrow_left</i></span>
+                                    <span class="next" title="Next"><i class="material-icons">keyboard_arrow_right</i></span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="tableData">
+                           
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 

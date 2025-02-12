@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsSuperadmin;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -52,7 +54,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapSuperAdminRoutes()
     {
-        Route::middleware(['web', 'auth'])
+        Route::middleware(['web', 'auth', 'is_superadmin'])
              ->prefix('Superadmin')
              ->group(base_path('routes/superadmin.php'));
     }
@@ -64,7 +66,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapAdminRoutes()
     {
-        Route::middleware(['web', 'auth'])
+        Route::middleware(['web', 'auth', 'is_admin'])
              ->prefix('Admin')
              ->group(base_path('routes/admin.php'));
     }

@@ -16,11 +16,16 @@ class IsSuperadmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         if(Auth::check() && Auth::user()->role->role_type == "superadmin") {
             return $next($request);
         }
         
-        return redirect()->route('auth.logout');
+
+
+        return redirect()->back()->with([
+            'message' => 'You are not authorized to access this!',
+            'type' => 'warning'
+        ]);
+        
     }
 }

@@ -11,14 +11,18 @@ const courseFilter = document.getElementById('courseFilter');
 const yearLevelFilter = document.getElementById('yearLevelFilter');
 const semesterFilter = document.getElementById('semesterFilter');
 const filterInfo = document.querySelector('.filterInfo');
+const paginateFilter = document.getElementById('paginate');
 const tableData = document.querySelector('.tableData');
 let debounceTimer;
+let currentPage = 1;
+let paginate = 10;
 
-async function fetchSubjects(department_id, search = '', course = '', year_level = '', semester = '') {
+async function fetchSubjects(department_id, search = '', course = '', year_level = '', semester = '', page = 1, paginate = 10) {
     try {
-        const response = await fetch(`${FETCH_SUBJECTS_ROUTE}?department_id=${department_id}&search=${search}&course=${course}&year_level=${year_level}&semester=${semester}`);
-        const subject = await response.json();
-        populateTable(subject.data);
+        const response = await fetch(`${FETCH_SUBJECTS_ROUTE}?department_id=${department_id}&search=${search}&course=${course}&year_level=${year_level}&semester=${semester}&page=${page}&paginate=${paginate}`);
+        const data = await response.json();
+        populateTable(data.data);
+        updatePagination(data);
     } catch (error) {
         console.error('Error fetching subjects:', error);
     }
@@ -35,11 +39,12 @@ function populateTable(subjects) {
         const row = `
             <tr class="Subject">
                 <td style="text-align: center"><input type="checkbox" name="selectionBoxSubject" class="selectionBoxSubject" value="${subject.subject_id}"></td>
+                <td>${subject.course.abbreviation}</td>
                 <td>${subject.course_no}</td>
                 <td>${subject.descriptive_title}</td>
                 <td>${subject.credits}</td>
+                <td>${subject.year_level}</td>
                 <td>${subject.semester}</td>
-                <td>${subject.academic_year}</td>
                 <td>
                     <div class="actions">
                         <span class="action edit" data-subject='${JSON.stringify(subject)}' onclick="event.stopPropagation(); editSubject(this);"><i class="material-icons icon" title="Edit">edit_square</i></span>
@@ -51,15 +56,59 @@ function populateTable(subjects) {
     });
 }
 
+function updatePagination(data) {
+    const previousButton = document.querySelector('.pagination .previous');
+    const nextButton = document.querySelector('.pagination .next');
+    const paginationContainer = document.querySelector('.page-info');
+
+    if (paginate === '') {
+        previousButton.classList.add('disabled');
+        previousButton.onclick = null;
+        nextButton.classList.add('disabled');
+        nextButton.onclick = null;
+        return;
+    }
+
+    
+    if (data.current_page > 1) {
+        previousButton.classList.remove('disabled');
+        previousButton.onclick = () => {
+            currentPage--;
+            fetchSubjects(department_id, searchInput.value, courseFilter.value, yearLevelFilter.value, semesterFilter.value, currentPage, paginateFilter.value);
+        };
+    } else {
+        previousButton.classList.add('disabled');
+        previousButton.onclick = null;
+    }
+
+    if (data.current_page < data.last_page) {
+        nextButton.classList.remove('disabled');
+        nextButton.onclick = () => {
+            currentPage++;
+            fetchSubjects(department_id, searchInput.value, courseFilter.value, yearLevelFilter.value, semesterFilter.value, currentPage, paginateFilter.value);
+        };
+    } else {
+        nextButton.classList.add('disabled');
+        nextButton.onclick = null;
+    }
+
+    const pageInfo = `<span class="page-number">Showing page ${data.current_page} | ${data.last_page}</span>`;
+    paginationContainer.innerHTML = pageInfo;
+}
+
+
+
 function handleFiltersChange() {
     const searchValue = searchInput.value;
     const courseValue = courseFilter.value;
     const yearLevelValue = yearLevelFilter.value;
     const semesterValue = semesterFilter.value;
+    const paginateValue = paginateFilter.value === '' ? '' : parseInt(paginateFilter.value, 10);
 
     const courseOptionText = courseFilter.options[courseFilter.selectedIndex]?.innerText;
     const yearLevelOptionText = yearLevelFilter.options[yearLevelFilter.selectedIndex]?.innerText;
     const semesterOptionText = semesterFilter.options[semesterFilter.selectedIndex]?.innerText;
+    const paginateOptionText = paginateFilter.options[paginateFilter.selectedIndex]?.innerText;
 
     let filterText = ``;
 
@@ -77,16 +126,17 @@ function handleFiltersChange() {
     {
         filterText += ` ${semesterOptionText} `;
     }
-
-    filterInfo.textContent = filterText;
-
-    fetchSubjects(department_id, searchValue, courseValue, yearLevelValue, semesterValue);
+    filterInfo.innerText = filterText;
+    fetchSubjects(department_id, searchValue, courseValue, yearLevelValue, semesterValue, currentPage, paginateValue);
 }
 
 searchInput.addEventListener('input', () => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(handleFiltersChange, 600);
 });
+
+
+paginateFilter.addEventListener('change', handleFiltersChange);
 
 courseFilter.addEventListener('change', handleFiltersChange);
 
@@ -414,27 +464,44 @@ $('#bulkDeleteSubject').click(function() {
 document.getElementById('printButton').addEventListener('click', function() {
     var table = document.querySelector('.table');
 
-    var contentToPrint = document.querySelector('.table-info').innerHTML + 
-                         `<style>
-                            @media print {
-                                .table tr td:first-child,
-                                .table tr th:first-child,
-                                .table tr td:last-child,
-                                .table tr th:last-child {
-                                    display: none;
-                                }
-                            }
-                          </style>` + table.outerHTML;
+    var contentToPrint = document.querySelector('.table-info').innerHTML + table.outerHTML;
+
+    const departmentNameElement = document.querySelector('span[data-department_name]');
+    const departmentAbbreviationElement = document.querySelector('span[data-department_abbreviation]');
+
+    const departmentName = departmentNameElement.getAttribute('data-department_name'); 
+    const departmentAbbreviation = departmentAbbreviationElement.getAttribute('data-department_abbreviation');
 
     var printFrame = document.createElement('iframe');
     printFrame.style.display = 'none';
     document.body.appendChild(printFrame);
-
     var iframeDoc = printFrame.contentWindow.document;
     iframeDoc.open();
     iframeDoc.write('<html><head><title>Print</title>');
     iframeDoc.write('<link rel="stylesheet" type="text/css" href="' + base_route + '">');
     iframeDoc.write('</head><body>');
+    iframeDoc.write(`
+        <style>
+             .table tr td:first-child,
+            .table tr th:first-child,
+            .table tr td:last-child,
+            .table tr th:last-child {
+                display: none;
+            }
+            th.pagination,
+            .pagination {
+                display: none !important;
+            }
+        </style>
+        <div class="print-header">
+            <img src="${BASE_ASSETS_PATH}/Images/FCU-Logo.png">
+            <div class="print-header-context">
+                <h3>Filamer Christian University Inc.</h3>
+                <strong>${departmentName}</strong>
+                <strong>Roxas City</strong>
+            </div>
+            <img src="${BASE_ASSETS_PATH}/Images/Departments Logo/${departmentAbbreviation}.png">
+        </div>`);
     iframeDoc.write(contentToPrint);
     iframeDoc.write('</body></html>');
     iframeDoc.close();
@@ -444,10 +511,3 @@ document.getElementById('printButton').addEventListener('click', function() {
         document.body.removeChild(printFrame);
     }, 500);
 });
-
-
-
-
-
-
-

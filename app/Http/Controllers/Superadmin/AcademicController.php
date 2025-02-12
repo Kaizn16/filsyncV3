@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Superadmin;
 use App\Models\Course;
 use App\Models\Subject;
 use App\Models\CoursesNo;
-use App\Models\YearLevel;
 use App\Models\Department;
 use Illuminate\Http\Request;
 use App\Constants\AppConstants;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
 
 class AcademicController extends Controller
 {
@@ -54,12 +52,12 @@ class AcademicController extends Controller
             ->where('is_deleted', false)
             ->get();
 
-        $yearLevels = YearLevel::all();
-        $semester = AppConstants::SEMESTERS;
+        $yearLevels = AppConstants::YEAR_LEVELS;
+        $semesters = AppConstants::SEMESTERS;
         $academic_years = $this->academicYears;
 
 
-        return view("superadmin.academics.subjects", compact("department", "courses", 'yearLevels', 'semester', 'academic_years'));
+        return view("superadmin.academics.subjects", compact("department", "courses", 'yearLevels', 'semesters', 'academic_years'));
     }
 
 
@@ -67,49 +65,51 @@ class AcademicController extends Controller
     public function fetchSubjects(Request $request)
     {
         $department_id = $request->input('department_id');
+        $paginate = $request->input('paginate', 10);
 
         if (!$department_id) {
             return redirect()->route('superadmin.academics');
         }
 
-        $query = Subject::join('courses_no', 'subjects.course_no_id', '=', 'courses_no.course_no_id')
-            ->where('subjects.department_id', $department_id)
-            ->where('subjects.is_deleted', 0)
-            ->select(
-                'subjects.*', 
-                'courses_no.course_no as course_no', 
-                'courses_no.descriptive_title as descriptive_title', 
-                'courses_no.credits as credits'
-            );
-
+        $query = CoursesNo::with('course')->where('department_id', $department_id);
         
         if ($request->has('course') && $request->input('course') !== '' && !empty($request->input('course'))) {
-            $query->where('subjects.course_id', $request->input('course'));
+            $query->where('course_id', $request->input('course'));
         }
 
         if ($request->has('year_level') && $request->input('year_level') !== '' && !empty($request->input('year_level'))) {
-            $query->where('subjects.year_level_id', $request->input('year_level'));
+            $query->where('year_level', $request->input('year_level'));
         }
 
         if ($request->has('semester') && $request->input('semester') !== '' && !empty($request->input('semester'))) {
-            $query->where('subjects.semester', $request->input('semester'));
-        }
-
-        if ($request->has('academic_year') && $request->input('academic_year') !== '' && !empty($request->input('academic_year'))) {
-            $query->where('subjects.academic_year', $request->input('academic_year'));
+            $query->where('semester', $request->input('semester'));
         }
 
         if ($request->has('search') && !empty($request->input('search'))) {
-            $query->where(function ($q) use ($request) {
-                $q->where('courses_no.descriptive_title', 'like', '%' . $request->input('search') . '%')
-                ->orWhere('courses_no.course_no', 'like', '%' . $request->input('search') . '%');
+            $searchTerms = explode(' ', $request->input('search'));
+        
+            $query->where(function ($q) use ($searchTerms) {
+                foreach ($searchTerms as $term) {
+                    $q->where(function ($subQuery) use ($term) {
+                        $subQuery->where('course_no', 'like', '%' . $term . '%')
+                                 ->orWhere('descriptive_title', 'like', '%' . $term . '%')
+                                 ->orWhere('year_level', 'like', '%' . $term . '%')
+                                 ->orWhere('semester', 'like', '%' . $term . '%')
+                                 ->orWhereHas('course', function ($courseQuery) use ($term) {
+                                     $courseQuery->where('course_name', 'like', '%' . $term . '%')
+                                                 ->orWhere('abbreviation', 'like', '%' . $term . '%');
+                                 });
+                    });
+                }
             });
         }
+        
 
-        $subjects = $query->get();
+        $subjects = $paginate === '' ? $query->limit(1000)->get() : $query->paginate($paginate);
 
-        return response()->json(['data' => $subjects]);
+        return response()->json($subjects);
     }
+
 
     public function store(Request $request)
     {

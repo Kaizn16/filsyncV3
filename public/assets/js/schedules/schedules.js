@@ -1,8 +1,7 @@
 let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 const userRoleMeta = document.querySelector('meta[name="user-role"]');
 const authUserRole = userRoleMeta ? userRoleMeta.getAttribute('content') : null;
-const FETCH_DEPARTMENTS_ROUTE = route('fetch.departments');
-const SUBJECTS_ROUTE = route(`${authUserRole}.schedules.subjects`);
+const FETCH_DEPARTMENTS_ROUTE = route(`${authUserRole}.fetch.departments`);
 const DEBOUNCE_DELAY = 600;
 
 let debounceTimeout = null;
@@ -25,19 +24,20 @@ async function fetchAndPopulateDepartments(searchTerm = '') {
         const listContainer = document.querySelector('.departments-card-container');
         listContainer.innerHTML = '';
 
-        if (departments.length === 0) {
+        if (departments.length === 0) { 
             listContainer.innerHTML = '<p class="search-feed">No departments found.</p>';
             return;
         }
 
         departments.forEach(department => {
+            const FETCH_DEPARTMENT_COURSES_ROUTE = route(`${authUserRole}.department.courses`, department.abbreviation);
             const listItemHTML = `
                 <li class="card">
                     <div class="department-info">
                         <img src="${BASE_ASSET_URL}/${department.logo}" class="logo" alt="Department Logo">
                         <strong class="department-name">${department.department_name}<span class="abbreviation">(${department.abbreviation})</span></strong>
                     </div>
-                    <a href="${SUBJECTS_ROUTE}?department=${department.abbreviation}" class="link" title="View ${department.abbreviation} Schedule">View Schedule</a>
+                    <a href="${FETCH_DEPARTMENT_COURSES_ROUTE}" class="link" title="View ${department.abbreviation} Schedule">View Schedule</a>
                 </li>
             `;
 

@@ -62,6 +62,7 @@ class AuthenticationController extends Controller
             'middle_name' => $user->middle_name,
             'last_name' => $user->last_name,
             'role' => $user->role->role_type,
+            'full_name' => $user->first_name . ($user->middle_name ? ' ' . $user->middle_name[0] . '. ' : ' ') . $user->last_name,
         ]);
 
         if ($user->role->role_type !== 'vpaa' && $user->role->role_type !== 'registrar' && $user->role->role_type !== 'superadmin') {
@@ -83,9 +84,9 @@ class AuthenticationController extends Controller
         switch ($user->role->role_type) {
             case 'superadmin':
                 return redirect()->route('superadmin.dashboard');
+            case 'admin':
+                return redirect()->route('admin.dashboard');
             case 'vpaa':
-                return redirect()->route('vpaa.dashboard');
-            case 'dean':
                 return redirect()->route('dean.dashboard');
             default:
                 return redirect()->route('auth.logout');
