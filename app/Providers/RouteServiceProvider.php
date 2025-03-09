@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Http\Middleware\IsAdmin;
-use App\Http\Middleware\IsSuperadmin;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -21,6 +19,9 @@ class RouteServiceProvider extends ServiceProvider
             $this->mapAuthRoutes();
             $this->mapSuperAdminRoutes();
             $this->mapAdminRoutes();
+            $this->mapTeacherRoutes();
+            $this->mapVPAARoutes();
+            $this->mapHumanResourceRoutes();
         });
     }
 
@@ -69,5 +70,39 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware(['web', 'auth', 'is_admin'])
              ->prefix('Admin')
              ->group(base_path('routes/admin.php'));
+    }
+
+    /**
+     * Define the "teacher" routes for the application.
+     *
+     * @return void
+     */
+    protected function mapTeacherRoutes()
+    {
+        Route::middleware(['web', 'auth', 'is_teacher'])
+             ->prefix('Teacher')
+             ->group(base_path('routes/teacher.php'));
+    }
+    /**
+     * Define the "VPAA" routes for the application.
+     *
+     * @return void
+     */
+    protected function mapVPAARoutes()
+    {
+        Route::middleware(['web', 'auth', 'is_vpaa'])
+             ->prefix('VPAA')
+             ->group(base_path('routes/vpaa.php'));
+    }
+    /**
+     * Define the "HR" routes for the application.
+     *
+     * @return void
+     */
+    protected function mapHumanResourceRoutes()
+    {
+        Route::middleware(['web', 'auth', 'is_hr'])
+             ->prefix('HR')
+             ->group(base_path('routes/humanresource.php'));
     }
 }

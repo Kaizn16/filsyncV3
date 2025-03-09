@@ -11,8 +11,8 @@ const FETCH_SUBJECTS_ROUTE = route(`${authUserRole}.fetch.subjects`);
 
 let debounceTimer;
 
-async function fetchSubjects(search, semester, year_level, section) {
-    const url = `${FETCH_SUBJECTS_ROUTE}?search=${encodeURIComponent(search)}&year_level=${year_level}&section=${section}&semester=${semester}`;
+async function fetchSubjects(course_id, search, semester, year_level, section) {
+    const url = `${FETCH_SUBJECTS_ROUTE}?course_id=${course_id}&search=${encodeURIComponent(search)}&year_level=${year_level}&section=${section}&semester=${semester}`;
     
     try {
         const response = await fetch(url);
@@ -60,11 +60,11 @@ const searchInput = document.getElementById('search');
 searchInput.addEventListener('input', () => {
     clearTimeout(debounceTimer);
     debounceTimer = setTimeout(() => {
-        fetchSubjects(searchInput.value, semester, year_level, section);
+        fetchSubjects(course_id, searchInput.value, semester, year_level, section);
     }, 600);
 });
 
-fetchSubjects(searchInput.value, semester, year_level, section);
+fetchSubjects(course_id, searchInput.value, semester, year_level, section);
 
 async function fetchSchedulesByDraft() {
     const FETCH_DRAFT_SCHEDULES = route('fetch.draftschedules');
@@ -343,7 +343,6 @@ function subjectScheduleModal(mode, subject, scheduleData = {}) {
     document.querySelector('.custom-swal-popup .close').addEventListener('click', () => {
         Swal.close();
     });
-
 }
 
 

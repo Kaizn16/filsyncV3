@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Middleware\IsSuperadmin;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\IsSuperadmin;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsTeacher;
+use App\Http\Middleware\isVPAA;
+use App\Http\Middleware\isRegistrar;
+use App\Http\Middleware\isHumanResource;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'is_superadmin' => IsSuperadmin::class,
             'is_admin' => IsAdmin::class,
+            'is_teacher' => IsTeacher::class,
+            'is_vpaa' => IsVPAA::class,
+            'is_registrar' => isRegistrar::class,
+            'is_hr' => IsHumanResource::class
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

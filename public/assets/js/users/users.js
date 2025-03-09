@@ -25,6 +25,7 @@ async function fetchUsers(search = '', position = '', page = 1) {
 
 function populateTable(users) {
     tableData.innerHTML = '';
+
     if (users.length === 0) {
         tableData.innerHTML = '<tr><td colspan="4" style="text-align:center">No results found</td></tr>';
         return;
@@ -39,7 +40,7 @@ function populateTable(users) {
                         <p class="${user.position}">${user.position}</p>
                     </span>
                 </td>
-                <td>${user.department.department_name}</td>
+                <td>${user.department?.department_name ?? 'N/A'}</td>
                 <td>
                    <div class="actions">
                         <span class="action view" data-user='${JSON.stringify(user)}' onclick="event.stopPropagation(); viewUser(this);"><i class="material-icons icon" title="View">visibility</i></span>

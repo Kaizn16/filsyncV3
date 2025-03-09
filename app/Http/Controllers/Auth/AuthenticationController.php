@@ -87,7 +87,13 @@ class AuthenticationController extends Controller
             case 'admin':
                 return redirect()->route('admin.dashboard');
             case 'vpaa':
-                return redirect()->route('dean.dashboard');
+                return redirect()->route('vpaa.dashboard');
+            case 'teacher':
+                return redirect()->route('teacher.dashboard');
+            case 'registrar':
+                return redirect()->route('registrar.dashboard');
+            case 'hr':
+                return redirect()->route('hr.dashboard');
             default:
                 return redirect()->route('auth.logout');
         }
@@ -99,6 +105,6 @@ class AuthenticationController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return view('auth.login');
+        return redirect()->route('login');
     }
 }

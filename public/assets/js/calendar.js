@@ -2,13 +2,32 @@
 const header = document.querySelector('.calendar-container .header h3');
 const dates = document.querySelector('.calendar-container .dates');
 const navs = document.querySelectorAll('.calendar-container #prev, .calendar-container #next');
+const todayBtn = document.querySelector('#today');
+const monthSelect = document.createElement('select');
+const yearInput = document.createElement('input');
+yearInput.type = 'number';
+yearInput.min = 1900;
+yearInput.max = 2100;
 
 const months = [
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 ];
 
-// calculate the holiday base on the Easter Date / Leap Year
+// Populate month dropdown
+months.forEach((month, index) => {
+    let option = document.createElement('option');
+    option.value = index;
+    option.textContent = month;
+    monthSelect.appendChild(option);
+});
+
+// Append controls to the header
+header.innerHTML = "";
+header.appendChild(monthSelect);
+header.appendChild(yearInput);
+
+// Get Easter Date
 function getEasterDate(year) {
     const a = year % 19;
     const b = Math.floor(year / 100);
@@ -27,31 +46,25 @@ function getEasterDate(year) {
     return { month: month - 1, day: day };
 }
 
-// Get the accurate day of holidays that change based on year
+// Get Holidays
 function getVariableHolidays(year) {
     const easter = getEasterDate(year);
-
-    // Calculate holidays based on Easter
-    const maundyThursday = new Date(year, easter.month, easter.day - 3); // Maundy Thursday
-    const goodFriday = new Date(year, easter.month, easter.day - 2); // Good Friday
-    const blackSaturday = new Date(year, easter.month, easter.day + 1); // Black Saturday
-
     return [
-        { month: maundyThursday.getMonth(), day: maundyThursday.getDate(), name: "Maundy Thursday" },
-        { month: goodFriday.getMonth(), day: goodFriday.getDate(), name: "Good Friday" },
-        { month: blackSaturday.getMonth(), day: blackSaturday.getDate(), name: "Black Saturday" }
+        { month: easter.month, day: easter.day - 3, name: "Maundy Thursday" },
+        { month: easter.month, day: easter.day - 2, name: "Good Friday" },
+        { month: easter.month, day: easter.day + 1, name: "Black Saturday" }
     ];
 }
 
 function getLastMondayOfAugust(year) {
-    const augustLastDay = new Date(year, 7, 31); // August 31 of the given year
+    const augustLastDay = new Date(year, 7, 31);
     const lastMonday = new Date(augustLastDay);
     lastMonday.setDate(augustLastDay.getDate() - ((augustLastDay.getDay() + 6) % 7));
     return lastMonday;
 }
 
 function getHolidays(year) {
-    const fixedHolidays = [
+    return [
         { month: 0, day: 1, name: "New Year's Day" },
         { month: 1, day: 14, name: "Valentine's Day" },
         { month: 4, day: 1, name: "Labor Day" },
@@ -67,12 +80,9 @@ function getHolidays(year) {
         { month: 10, day: 2, name: "All Souls' Day" },
         { month: 11, day: 8, name: "Feast of the Immaculate Conception" },
         { month: 11, day: 24, name: "Christmas Eve" },
-        { month: 11, day: 31, name: "New Year's Eve" }
+        { month: 11, day: 31, name: "New Year's Eve" },
+        ...getVariableHolidays(year)
     ];
-
-    const variableHolidays = getVariableHolidays(year);
-
-    return [...fixedHolidays, ...variableHolidays];
 }
 
 let date = new Date();
@@ -80,21 +90,17 @@ let month = date.getMonth();
 let year = date.getFullYear();
 
 function renderCalendar() {
-    const holidays = getHolidays(year); // Fetch holidays for the current year
-
+    const holidays = getHolidays(year);
     const start = new Date(year, month, 1).getDay();
     const endDate = new Date(year, month + 1, 0).getDate();
-    const end = new Date(year, month, endDate).getDay();
     const endDatePrev = new Date(year, month, 0).getDate();
 
     let datesHtml = '';
 
-    // Previous month's last few days
     for (let i = start; i > 0; i--) {
         datesHtml += `<li class="inactive">${endDatePrev - i + 1}</li>`;
     }
 
-    // Current month's days
     for (let i = 1; i <= endDate; i++) {
         let className = '';
         let title = '';
@@ -104,7 +110,6 @@ function renderCalendar() {
             title = 'Today';
         }
 
-        // Check if the current day is a holiday
         const holiday = holidays.find(h => h.month === month && h.day === i);
         if (holiday) {
             className = className ? `${className} holiday` : 'holiday';
@@ -114,34 +119,58 @@ function renderCalendar() {
         datesHtml += `<li class="${className}" title="${title}">${i}</li>`;
     }
 
-    // Next month's first few days
+    const end = new Date(year, month, endDate).getDay();
     for (let i = end; i < 6; i++) {
         datesHtml += `<li class="inactive">${i - end + 1}</li>`;
     }
 
     dates.innerHTML = datesHtml;
-    header.textContent = `${months[month]} ${year}`;
+    monthSelect.value = month;
+    yearInput.value = year;
 }
 
-
-// Handle the Previous and Next Button
+// Handle Navigation Buttons
 navs.forEach(nav => {
     nav.addEventListener('click', e => {
-        const btnId = e.target.id;
-
-        if (btnId === 'prev' && month === 0) {
-            year--;
-            month = 11;
-        } else if (btnId === 'next' && month === 11) {
-            year++;
-            month = 0;
-        } else {
-            month = (btnId === 'next') ? month + 1 : month - 1;
+        if (e.target.id === 'prev') {
+            if (month === 0) {
+                year--;
+                month = 11;
+            } else {
+                month--;
+            }
+        } else if (e.target.id === 'next') {
+            if (month === 11) {
+                year++;
+                month = 0;
+            } else {
+                month++;
+            }
         }
-
-        date = new Date(year, month, date.getDate());
         renderCalendar();
     });
 });
 
-renderCalendar(); // Render the Calendar
+todayBtn.addEventListener('click', () => {
+    date = new Date();
+    month = date.getMonth();
+    year = date.getFullYear();
+    renderCalendar();
+});
+
+// Handle Month Selection
+monthSelect.addEventListener('change', () => {
+    month = parseInt(monthSelect.value);
+    renderCalendar();
+});
+
+// Handle Year Input
+yearInput.addEventListener('input', () => {
+    const newYear = parseInt(yearInput.value);
+    if (newYear >= 1900 && newYear <= 2100) {
+        year = newYear;
+        renderCalendar();
+    }
+});
+
+renderCalendar();

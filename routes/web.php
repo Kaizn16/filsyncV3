@@ -1,14 +1,20 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\DepartmentController;
-use App\Http\Controllers\Superadmin\ScheduleController;
+use App\Http\Controllers\Student\StudentController;
 
 Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::controller(StudentController::class)->prefix('Student')->group( function() {
+    Route::get('Departments', 'index')->name('students');
+    Route::get('Departments/{department_abbreviation}', 'schedules')->name('student.schedules');
+    Route::get('Departments/Fetch/Schedules', 'fetchSchedules')->name('fetch.approved.schedules');
+});
 
 
+//APIS
 Route::get('/Fetch/Departments', [DepartmentController::class, 'fetchDepartments'])
     ->name('fetch.departments')
     ->middleware('auth');

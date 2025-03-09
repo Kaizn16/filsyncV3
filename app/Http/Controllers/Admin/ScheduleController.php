@@ -35,7 +35,6 @@ class ScheduleController extends Controller
         $position = request()->query('position');
         $searchTerm = request()->query('search');
 
-
         if ($position !== 'VPAA' && $position !== 'REGISTRAR') {
             $query = Department::query();
     
@@ -353,12 +352,19 @@ class ScheduleController extends Controller
 
     public function fetchSubjects(Request $request)
     {
-        $courseId = $request->input('course_id');
-        $search = $request->input('search');
-        $yearLevel = $request->input('year_level');
-        $semester = $request->input('semester');
+        $validated = $request->validate([
+            'search' => 'nullable|string|max:255',
+            'course_id' => 'nullable|integer|exists:courses,course_id',
+            'year_level' => 'nullable|string',
+            'semester' => 'nullable|string',
+        ]);
+    
+        $search = $validated['search'] ?? null;
+        $courseId = $validated['course_id'] ?? null;
+        $yearLevel = $validated['year_level'] ?? null;
+        $semester = $validated['semester'] ?? null;
 
-        $subjects = CoursesNo::query()
+        $subjects = CoursesNo::selectRaw('MIN(course_no_id) as course_no_id, course_no, descriptive_title, credits, year_level, semester')
             ->when($courseId, function ($query) use ($courseId) {
                 return $query->where('course_id', $courseId);
             })
@@ -375,8 +381,9 @@ class ScheduleController extends Controller
             ->when($semester, function ($query) use ($semester) {
                 return $query->where('semester', $semester);
             })
-            ->distinct()
+            ->groupBy('course_no', 'descriptive_title', 'credits', 'year_level', 'semester')
             ->paginate(15);
+
 
         return response()->json($subjects);
     }
@@ -422,7 +429,7 @@ class ScheduleController extends Controller
         $schedules = $query->get();
 
         if ($schedules->isEmpty()) {
-            return response()->json(['message' => 'No schedules found'], 404);
+            return response()->json([]);
         }
 
         $groupedSchedules = [];
@@ -455,6 +462,10 @@ class ScheduleController extends Controller
             ];
         }
 
+        if(empty($groupedSchedules)) {
+            return response()->json([]);
+        }
+
         return response()->json(array_values($groupedSchedules));
     }
 
@@ -468,7 +479,11 @@ class ScheduleController extends Controller
                 return $query->where('is_deleted', $isDeleted);
             })->get();
 
-        return response()->json($myScheduleDrafts);
+        if($myScheduleDrafts) {
+            return response()->json($myScheduleDrafts);    
+        }
+
+        return response()->json([]);
     }
 
     public function restoreMyDraft(Request $request) 
@@ -575,7 +590,7 @@ class ScheduleController extends Controller
         $schedules = $query->get();
 
         if ($schedules->isEmpty()) {
-            return response()->json(['message' => 'No schedules found'], 404);
+            return response()->json([]);
         }
 
         $groupedSchedules = [];

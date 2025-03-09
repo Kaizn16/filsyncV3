@@ -206,15 +206,10 @@ class UserController extends Controller
     {
         $role_id = 0;
     
-        switch ($position) {
-            case 'SECRETARY':
-                $role_id = 2;
-                break;
-            case 'TEACHER':
-                $role_id = 3;
-                break;
+        if($position == "TEACHER")
+        {
+            return 3; // TEACHER ROLE ID
         }
-    
         return $role_id;
     }
     

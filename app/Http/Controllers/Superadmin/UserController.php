@@ -46,7 +46,6 @@ class UserController extends Controller
     }
 
 
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -91,7 +90,7 @@ class UserController extends Controller
 
         $user = new User($validated);
         $user->role_id = $role_id;
-        $user->department_id = $validated['department'];
+        $user->department_id = $validated['department'] ?? null;
         $user->save();
         $user_setting = Setting::create(['user_id' => $user->user_id]);
 

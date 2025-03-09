@@ -179,7 +179,6 @@ function openUserModal(mode, userData = {})
                                     <label for="position">Position <strong class="required">*</strong></label>
                                     <select name="position" id="position">
                                         <option selected disabled>Position</option>
-                                        <option value="SECRETARY" ${position == 'SECRETARY' ? 'selected' : ''}>SECRETARY</option>
                                         <option value="TEACHER" ${position == 'TEACHER' ? 'selected' : ''}>TEACHER</option>
                                     </select>
                                 </div>

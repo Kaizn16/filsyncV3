@@ -20,8 +20,6 @@ class IsSuperadmin
             return $next($request);
         }
         
-
-
         return redirect()->back()->with([
             'message' => 'You are not authorized to access this!',
             'type' => 'warning'

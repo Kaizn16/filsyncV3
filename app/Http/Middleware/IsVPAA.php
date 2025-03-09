@@ -4,9 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsVPAAorRegistrar
+class IsVPAA
 {
     /**
      * Handle an incoming request.
@@ -15,6 +16,13 @@ class IsVPAAorRegistrar
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if(Auth::check() && Auth::user()->role->role_type == "vpaa") {
+            return $next($request);
+        }
+        
+        return redirect()->back()->with([
+            'message' => 'You are not authorized to access this!',
+            'type' => 'warning'
+        ]);
     }
 }
