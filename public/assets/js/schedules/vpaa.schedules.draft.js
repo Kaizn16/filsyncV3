@@ -46,6 +46,7 @@ function populateTable(data) {
         row.innerHTML = `
             <td>${(data.current_page - 1) * data.per_page + index + 1}</td>
             <td>${draft.draft_name}</td>
+            <td>${draft.remarks || ''}</td>
             <td>
                 <span class="draft-status">
                     <p class="${draft.status.toUpperCase()}">${draft.status.toUpperCase()}</p>

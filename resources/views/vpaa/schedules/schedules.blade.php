@@ -52,6 +52,7 @@
                         <tr class="heading">
                             <th>#</th>
                             <th>Draft</th>
+                            <th>Remarks</th>
                             <th>Status</th>
                             <th class="pagination">
                                 <span class="previous" title="Previous"><i class="material-icons">keyboard_arrow_left</i></span>
