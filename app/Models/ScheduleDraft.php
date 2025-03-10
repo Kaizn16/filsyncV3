@@ -44,5 +44,4 @@ class ScheduleDraft extends Model
         return $this->belongsTo(Section::class, 'section_id');
     }
     
-
 }

@@ -50,7 +50,7 @@
                             <strong>{{ $schedule->academic_year }} - {{ $schedule->semester }}</strong>
                             <strong>{{ $schedule->created_at->format('F j g:i A') }}</strong>
                             <strong class="status {{ $schedule->status }}">{{ $schedule->status }}</strong>
-                            <a href="" title="VIEW"><i class="material-icons icon">visibility</i></a>
+                            <a href="{{ route('vpaa.view.schedules', ['schedule_draft_id' => $schedule->schedule_draft_id] ) }}" title="VIEW"><i class="material-icons icon">visibility</i>VIEW</a>
                         </li>
                     @endforeach
                 </ul>

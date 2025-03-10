@@ -421,6 +421,8 @@ body.dark .dashboard-chart-data::-webkit-scrollbar-thumb:hover{
     flex-direction: row;
     align-items: center;
     width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
     gap: 12px;
     color: var(--text-dark-color);
     background-color: var(--light-bg-color);
@@ -444,6 +446,26 @@ body.dark .dashboard-chart-data::-webkit-scrollbar-thumb:hover{
 
 .boxes .box .lists .item-info strong.rejected {
     background: var(--rejected);
+}
+
+.boxes .box .lists .item-info a {
+    gap: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light-color);
+    background: var(--button-bg-color);
+    width: 120px;
+    padding: 8px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+}
+
+.boxes .box .lists .item-info a:hover {
+    background: var(--hover-gradient-color);
 }
 
 .statwidgets {
@@ -955,7 +977,7 @@ body.dark .dashboard-chart-data::-webkit-scrollbar-thumb:hover{
 }
 
 .table-container .table-actions .actions select {
-    width: 128px;
+    width: fit-content;
 }
 
 .table-info {

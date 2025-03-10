@@ -23,6 +23,7 @@
 
     </section>  
 @endsection
+
 @section('script')
 @if (session('message'))
 <script>
